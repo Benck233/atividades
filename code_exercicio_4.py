@@ -9,3 +9,4 @@ if idade >=18 and tem_documento:
 
 else:
     print("Acesso negado")
+ 
