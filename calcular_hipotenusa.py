@@ -6,3 +6,5 @@ def calcula_hipotenusa(la1, la2):
 resultado = calcula_hipotenusa (3, 4)
 
 print(resultado)
+
+#funciona o git 
