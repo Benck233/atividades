@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NutriIA — Dietas Inteligentes</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-deep: #1a3a2a;
+    --green-mid: #2d6a4f;
+    --green-light: #52b788;
+    --green-pale: #b7e4c7;
+    --cream: #fdf8f0;
+    --warm-white: #fffef9;
+    --amber: #e8a020;
+    --red-soft: #c0392b;
+    --text-dark: #1a1a1a;
+    --text-mid: #4a4a4a;
+    --text-light: #888;
+    --shadow: 0 8px 40px rgba(26,58,42,0.12);
+    --shadow-lg: 0 20px 60px rgba(26,58,42,0.18);
+    --radius: 20px;
+    --radius-sm: 12px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--green-deep);
+    padding: 18px 24px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--green-pale);
+    letter-spacing: -0.5px;
+  }
+  .logo span { color: var(--green-light); }
+  .header-sub {
+    font-size: 0.72rem;
+    color: var(--green-pale);
+    opacity: 0.6;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+  }
+  .db-badge {
+    background: var(--green-mid);
+    color: var(--green-pale);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+  }
+  .db-badge:hover { background: var(--green-light); color: var(--green-deep); }
+
+  /* ── NAV TABS ── */
+  .nav-tabs {
+    display: flex;
+    background: var(--warm-white);
+    border-bottom: 2px solid var(--green-pale);
+    padding: 0 16px;
+    gap: 4px;
+  }
+  .tab-btn {
+    flex: 1;
+    padding: 14px 8px 12px;
+    border: none;
+    background: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-light);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .tab-btn .icon { font-size: 1.3rem; }
+  .tab-btn.active { color: var(--green-mid); border-bottom-color: var(--green-mid); font-weight: 600; }
+  .tab-btn:hover:not(.active) { color: var(--green-light); }
+
+  /* ── PANELS ── */
+  .panel { display: none; padding: 20px 16px 100px; animation: fadeIn 0.3s ease; }
+  .panel.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+  /* ── CAMERA PANEL ── */
+  .camera-area {
+    background: var(--green-deep);
+    border-radius: var(--radius);
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 4/3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  #videoEl { width: 100%; height: 100%; object-fit: cover; display: none; }
+  #previewCanvas { width: 100%; height: 100%; object-fit: cover; display: none; }
+  .camera-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    color: var(--green-pale);
+    opacity: 0.6;
+    font-size: 0.9rem;
+  }
+  .camera-placeholder .big-icon { font-size: 4rem; }
+
+  .camera-overlay {
+    position: absolute;
+    bottom: 12px;
+    left: 0; right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+  }
+  .cam-btn {
+    background: white;
+    border: none;
+    border-radius: 50%;
+    width: 54px; height: 54px;
+    font-size: 1.4rem;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    transition: transform 0.15s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .cam-btn:hover { transform: scale(1.1); }
+  .cam-btn.capture { width: 66px; height: 66px; font-size: 1.7rem; background: var(--green-light); }
+
+  /* ── INPUTS ── */
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--green-deep);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .input-group {
+    background: white;
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    border: 2px solid transparent;
+    box-shadow: var(--shadow);
+    transition: border-color 0.2s;
+    margin-bottom: 12px;
+  }
+  .input-group:focus-within { border-color: var(--green-light); }
+  .input-group label { font-size: 0.75rem; color: var(--text-light); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 6px; }
+  .input-group input, .input-group textarea, .input-group select {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    background: transparent;
+    resize: none;
+  }
+
+  .chips-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .chip {
+    background: var(--green-pale);
+    color: var(--green-deep);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.15s;
+  }
+  .chip.selected { background: var(--green-mid); color: white; border-color: var(--green-mid); }
+
+  /* ── BUTTONS ── */
+  .btn-primary {
+    width: 100%;
+    padding: 16px;
+    background: var(--green-mid);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 16px rgba(45,106,79,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  .btn-primary:hover { background: var(--green-deep); transform: translateY(-1px); }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .btn-secondary {
+    padding: 10px 18px;
+    background: transparent;
+    color: var(--green-mid);
+    border: 2px solid var(--green-mid);
+    border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { background: var(--green-mid); color: white; }
+
+  /* ── RECIPE CARD ── */
+  .recipe-card {
+    background: white;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    margin-bottom: 16px;
+    animation: slideUp 0.4s ease;
+  }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+  .recipe-header {
+    background: linear-gradient(135deg, var(--green-deep), var(--green-mid));
+    padding: 20px;
+    color: white;
+  }
+  .recipe-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .recipe-meta { display: flex; gap: 16px; flex-wrap: wrap; }
+  .meta-pill {
+    background: rgba(255,255,255,0.15);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 0.78rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .recipe-body { padding: 20px; }
+  .recipe-section { margin-bottom: 18px; }
+  .recipe-section h4 {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--green-mid);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .ingredient-list { list-style: none; }
+  .ingredient-list li {
+    padding: 6px 0;
+    border-bottom: 1px solid var(--green-pale);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .ingredient-list li:last-child { border: none; }
+  .ingredient-list li::before { content: '🌿'; font-size: 0.8rem; }
+  .step-list { list-style: none; counter-reset: steps; }
+  .step-list li {
+    counter-increment: steps;
+    padding: 10px 0 10px 40px;
+    border-bottom: 1px dashed var(--green-pale);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    position: relative;
+  }
+  .step-list li:last-child { border: none; }
+  .step-list li::before {
+    content: counter(steps);
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 26px; height: 26px;
+    background: var(--green-light);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+  .nutrition-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  .nutr-box {
+    background: var(--cream);
+    border-radius: 12px;
+    padding: 12px 8px;
+    text-align: center;
+  }
+  .nutr-value { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--green-mid); }
+  .nutr-label { font-size: 0.7rem; color: var(--text-light); margin-top: 3px; }
+
+  .card-actions { padding: 0 20px 20px; display: flex; gap: 10px; }
+
+  /* ── LOADING ── */
+  .loading-card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 40px 20px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    margin-bottom: 16px;
+  }
+  .spinner {
+    width: 48px; height: 48px;
+    border: 4px solid var(--green-pale);
+    border-top-color: var(--green-mid);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 16px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-msg { color: var(--text-mid); font-size: 0.9rem; }
+
+  /* ── SAVED RECIPES PANEL ── */
+  .saved-card {
+    background: white;
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    box-shadow: var(--shadow);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    border-left: 4px solid var(--green-light);
+  }
+  .saved-card:hover { transform: translateX(4px); box-shadow: var(--shadow-lg); }
+  .saved-icon { font-size: 2rem; flex-shrink: 0; }
+  .saved-info { flex: 1; }
+  .saved-name { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+  .saved-meta { font-size: 0.78rem; color: var(--text-light); }
+  .del-btn { background: none; border: none; color: var(--red-soft); font-size: 1.1rem; cursor: pointer; padding: 6px; opacity: 0.6; transition: opacity 0.15s; }
+  .del-btn:hover { opacity: 1; }
+
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-light);
+  }
+  .empty-state .big { font-size: 3.5rem; margin-bottom: 16px; }
+  .empty-state p { font-size: 0.9rem; line-height: 1.6; }
+
+  /* ── PROFILE PANEL ── */
+  .profile-card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow);
+    margin-bottom: 16px;
+  }
+  .avatar-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .avatar { width: 64px; height: 64px; background: var(--green-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; }
+  .avatar-info .name { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; }
+  .avatar-info .sub { font-size: 0.8rem; color: var(--text-light); margin-top: 3px; }
+
+  .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+  .stat-box { background: var(--cream); border-radius: 14px; padding: 16px 12px; text-align: center; }
+  .stat-val { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900; color: var(--green-mid); }
+  .stat-lbl { font-size: 0.72rem; color: var(--text-light); margin-top: 4px; }
+
+  /* ── TOAST ── */
+  #toast {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--green-deep);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    opacity: 0;
+    transition: all 0.3s;
+    z-index: 999;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 200;
+    display: none;
+    align-items: flex-end;
+    padding: 0;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-sheet {
+    background: var(--warm-white);
+    border-radius: 24px 24px 0 0;
+    padding: 24px 20px 40px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    animation: slideSheet 0.35s ease;
+  }
+  @keyframes slideSheet { from { transform: translateY(100%); } to { transform: none; } }
+  .modal-handle { width: 40px; height: 4px; background: var(--green-pale); border-radius: 2px; margin: 0 auto 20px; }
+  .modal-close { float: right; background: var(--green-pale); border: none; border-radius: 50%; width: 32px; height: 32px; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; margin-top: -4px; }
+
+  /* scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--green-pale); border-radius: 2px; }
+
+  .detected-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+  }
+  .detected-chip {
+    background: var(--amber);
+    color: white;
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .api-key-bar {
+    background: #fff8e1;
+    border: 2px solid var(--amber);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85rem;
+  }
+  .api-key-bar input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+  }
+  .api-key-bar .save-key {
+    background: var(--amber);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="logo">Nutri<span>IA</span></div>
+    <div class="header-sub">Alimentação Inteligente • UPF Research</div>
+  </div>
+  <button class="db-badge" onclick="switchTab('saved')">💾 Minhas Receitas</button>
+</header>
+
+<div class="nav-tabs">
+  <button class="tab-btn active" onclick="switchTab('camera')" id="tab-camera">
+    <span class="icon">📸</span> Câmera
+  </button>
+  <button class="tab-btn" onclick="switchTab('manual')" id="tab-manual">
+    <span class="icon">✍️</span> Manual
+  </button>
+  <button class="tab-btn" onclick="switchTab('saved')" id="tab-saved">
+    <span class="icon">📚</span> Salvas
+  </button>
+  <button class="tab-btn" onclick="switchTab('profile')" id="tab-profile">
+    <span class="icon">👤</span> Perfil
+  </button>
+</div>
+
+<!-- ══════════════════════════════════════ CAMERA PANEL -->
+<div id="panel-camera" class="panel active">
+
+  <div class="api-key-bar">
+    <span>🔑</span>
+    <input type="password" id="apiKeyInput" placeholder="Cole sua API Key Anthropic aqui..." />
+    <button class="save-key" onclick="saveApiKey()">Salvar</button>
+  </div>
+
+  <div class="camera-area" id="cameraArea">
+    <div class="camera-placeholder" id="camPlaceholder">
+      <div class="big-icon">🥦</div>
+      <div>Abra a câmera para detectar<br>alimentos automaticamente</div>
+    </div>
+    <video id="videoEl" autoplay playsinline></video>
+    <canvas id="previewCanvas"></canvas>
+    <div class="camera-overlay" id="camControls" style="display:none;">
+      <button class="cam-btn" onclick="switchCam()" title="Trocar câmera">🔄</button>
+      <button class="cam-btn capture" onclick="capturePhoto()" title="Fotografar">📷</button>
+      <button class="cam-btn" onclick="stopCamera()" title="Fechar">✖️</button>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:10px;margin-bottom:16px;">
+    <button class="btn-primary" style="flex:1" onclick="startCamera()">📸 Abrir Câmera</button>
+    <label class="btn-primary" style="flex:1;cursor:pointer;">
+      🖼️ Galeria
+      <input type="file" accept="image/*" style="display:none" onchange="loadFromGallery(event)">
+    </label>
+  </div>
+
+  <div id="detectedSection" style="display:none;">
+    <div class="section-title">🔍 Alimentos Detectados</div>
+    <div class="detected-items" id="detectedItems"></div>
+    <button class="btn-primary" onclick="generateRecipeFromCamera()" id="genFromCamBtn">
+      ✨ Gerar Receita Saudável com IA
+    </button>
+  </div>
+
+  <div id="cameraRecipeOutput"></div>
+</div>
+
+<!-- ══════════════════════════════════════ MANUAL PANEL -->
+<div id="panel-manual" class="panel">
+
+  <div class="section-title">🥗 Criar Receita com IA</div>
+
+  <div class="input-group">
+    <label>Ingredientes disponíveis</label>
+    <textarea id="ingredientsInput" rows="3" placeholder="Ex: frango, brócolis, cenoura, azeite..."></textarea>
+  </div>
+
+  <div class="section-title" style="font-size:0.9rem;margin-bottom:8px;">🎯 Objetivo</div>
+  <div class="chips-row" id="goalChips">
+    <div class="chip selected" onclick="toggleChip(this,'goal')">Emagrecer</div>
+    <div class="chip" onclick="toggleChip(this,'goal')">Ganhar massa</div>
+    <div class="chip" onclick="toggleChip(this,'goal')">Manutenção</div>
+    <div class="chip" onclick="toggleChip(this,'goal')">Energia</div>
+  </div>
+
+  <div class="section-title" style="font-size:0.9rem;margin-bottom:8px;">⚠️ Restrições</div>
+  <div class="chips-row" id="restrictChips">
+    <div class="chip" onclick="toggleChip(this,'restrict')">Sem glúten</div>
+    <div class="chip" onclick="toggleChip(this,'restrict')">Sem lactose</div>
+    <div class="chip" onclick="toggleChip(this,'restrict')">Vegano</div>
+    <div class="chip" onclick="toggleChip(this,'restrict')">Low carb</div>
+    <div class="chip" onclick="toggleChip(this,'restrict')">Vegetariano</div>
+  </div>
+
+  <div class="input-group">
+    <label>Tempo disponível</label>
+    <select id="timeSelect">
+      <option value="15">⚡ Rápido (até 15 min)</option>
+      <option value="30" selected>🕐 Médio (até 30 min)</option>
+      <option value="60">🍳 Elaborado (até 1h)</option>
+    </select>
+  </div>
+
+  <button class="btn-primary" onclick="generateRecipeManual()" id="genManualBtn">
+    ✨ Gerar Receita com IA
+  </button>
+
+  <div id="manualRecipeOutput" style="margin-top:16px;"></div>
+</div>
+
+<!-- ══════════════════════════════════════ SAVED PANEL -->
+<div id="panel-saved" class="panel">
+  <div class="section-title">📚 Banco de Receitas Salvas</div>
+  <div id="savedList"></div>
+</div>
+
+<!-- ══════════════════════════════════════ PROFILE PANEL -->
+<div id="panel-profile" class="panel">
+  <div class="section-title">👤 Meu Perfil Nutricional</div>
+
+  <div class="profile-card">
+    <div class="avatar-row">
+      <div class="avatar">🌿</div>
+      <div class="avatar-info">
+        <div class="name" id="profileName">Usuário NutriIA</div>
+        <div class="sub">Pesquisador UPF • Ciência da Computação</div>
+      </div>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-box"><div class="stat-val" id="statTotal">0</div><div class="stat-lbl">Receitas Geradas</div></div>
+      <div class="stat-box"><div class="stat-val" id="statSaved">0</div><div class="stat-lbl">Salvas</div></div>
+      <div class="stat-box"><div class="stat-val" id="statDays">0</div><div class="stat-lbl">Dias Ativos</div></div>
+    </div>
+  </div>
+
+  <div class="profile-card">
+    <div class="section-title">⚙️ Preferências Salvas</div>
+    <div class="input-group">
+      <label>Seu nome</label>
+      <input type="text" id="nameInput" placeholder="Como quer ser chamado?" oninput="saveProfile()">
+    </div>
+    <div class="input-group">
+      <label>Objetivo principal</label>
+      <select id="goalSelect" onchange="saveProfile()">
+        <option>Emagrecer</option>
+        <option>Ganhar massa muscular</option>
+        <option>Manutenção</option>
+        <option>Mais energia</option>
+        <option>Saúde geral</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <label>Restrições alimentares</label>
+      <input type="text" id="restrictInput" placeholder="Ex: sem lactose, vegetariano..." oninput="saveProfile()">
+    </div>
+  </div>
+
+  <button class="btn-primary" style="background:var(--red-soft);box-shadow:none;" onclick="clearAllData()">
+    🗑️ Limpar Todos os Dados
+  </button>
+</div>
+
+<!-- ══════════════════════════════════════ MODAL -->
+<div class="modal-overlay" id="recipeModal" onclick="closeModal(event)">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <button class="modal-close" onclick="document.getElementById('recipeModal').classList.remove('open')">✕</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ══════════════════════════════════════════
+// DATABASE (localStorage)
+// ══════════════════════════════════════════
+const DB = {
+  get: (k) => { try { return JSON.parse(localStorage.getItem('nutria_'+k)) || null; } catch { return null; } },
+  set: (k, v) => localStorage.setItem('nutria_'+k, JSON.stringify(v)),
+  getRecipes: () => DB.get('recipes') || [],
+  saveRecipe: (r) => {
+    const list = DB.getRecipes();
+    // Evita duplicatas pelo título
+    if (list.find(x => x.title === r.title)) { showToast('⚠️ Receita já salva!'); return false; }
+    list.unshift({ ...r, id: Date.now(), savedAt: new Date().toLocaleDateString('pt-BR') });
+    DB.set('recipes', list);
+    updateStats();
+    return true;
+  },
+  deleteRecipe: (id) => {
+    const list = DB.getRecipes().filter(x => x.id !== id);
+    DB.set('recipes', list);
+    updateStats();
+  },
+  getProfile: () => DB.get('profile') || {},
+  saveProfile_: (p) => DB.set('profile', p),
+  incrementTotal: () => DB.set('totalGenerated', (DB.get('totalGenerated') || 0) + 1),
+  getTotal: () => DB.get('totalGenerated') || 0,
+  getApiKey: () => DB.get('apikey') || '',
+  setApiKey: (k) => DB.set('apikey', k),
+};
+
+// ══════════════════════════════════════════
+// TABS
+// ══════════════════════════════════════════
+function switchTab(tab) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-'+tab).classList.add('active');
+  document.getElementById('tab-'+tab).classList.add('active');
+  if (tab === 'saved') renderSaved();
+  if (tab === 'profile') renderProfile();
+}
+
+// ══════════════════════════════════════════
+// API KEY
+// ══════════════════════════════════════════
+function saveApiKey() {
+  const k = document.getElementById('apiKeyInput').value.trim();
+  if (!k) { showToast('Cole a chave primeiro!'); return; }
+  DB.setApiKey(k);
+  showToast('🔑 Chave salva com sucesso!');
+  document.getElementById('apiKeyInput').value = '';
+}
+
+function getApiKey() {
+  return DB.getApiKey();
+}
+
+// ══════════════════════════════════════════
+// CAMERA
+// ══════════════════════════════════════════
+let stream = null;
+let facingMode = 'environment';
+let capturedImageBase64 = null;
+
+async function startCamera() {
+  try {
+    if (stream) stopCamera();
+    stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode, width: { ideal: 1280 }, height: { ideal: 960 } }
+    });
+    const vid = document.getElementById('videoEl');
+    vid.srcObject = stream;
+    vid.style.display = 'block';
+    document.getElementById('previewCanvas').style.display = 'none';
+    document.getElementById('camPlaceholder').style.display = 'none';
+    document.getElementById('camControls').style.display = 'flex';
+    capturedImageBase64 = null;
+    document.getElementById('detectedSection').style.display = 'none';
+    document.getElementById('cameraRecipeOutput').innerHTML = '';
+  } catch (e) {
+    showToast('❌ Câmera não disponível');
+  }
+}
+
+function switchCam() {
+  facingMode = facingMode === 'environment' ? 'user' : 'environment';
+  startCamera();
+}
+
+function stopCamera() {
+  if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
+  document.getElementById('videoEl').style.display = 'none';
+  document.getElementById('camPlaceholder').style.display = 'flex';
+  document.getElementById('camControls').style.display = 'none';
+}
+
+function capturePhoto() {
+  const vid = document.getElementById('videoEl');
+  const canvas = document.getElementById('previewCanvas');
+  canvas.width = vid.videoWidth;
+  canvas.height = vid.videoHeight;
+  canvas.getContext('2d').drawImage(vid, 0, 0);
+  capturedImageBase64 = canvas.toDataURL('image/jpeg', 0.8).split(',')[1];
+  canvas.style.display = 'block';
+  vid.style.display = 'none';
+  stopCamera();
+  document.getElementById('camControls').style.display = 'none';
+  analyzeImage(capturedImageBase64);
+}
+
+function loadFromGallery(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const base64 = e.target.result.split(',')[1];
+    capturedImageBase64 = base64;
+    // Show preview
+    const canvas = document.getElementById('previewCanvas');
+    const img = new Image();
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      canvas.getContext('2d').drawImage(img, 0, 0);
+      canvas.style.display = 'block';
+      document.getElementById('camPlaceholder').style.display = 'none';
+    };
+    img.src = e.target.result;
+    analyzeImage(base64);
+  };
+  reader.readAsDataURL(file);
+}
+
+async function analyzeImage(base64) {
+  const key = getApiKey();
+  if (!key) { showToast('⚠️ Insira sua API Key primeiro!'); return; }
+
+  document.getElementById('detectedSection').style.display = 'none';
+  document.getElementById('cameraRecipeOutput').innerHTML = `
+    <div class="loading-card">
+      <div class="spinner"></div>
+      <div class="loading-msg">🔍 Identificando alimentos na imagem...</div>
+    </div>`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+      body: JSON.stringify({
+        model: 'claude-opus-4-5',
+        max_tokens: 300,
+        messages: [{
+          role: 'user',
+          content: [
+            { type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: base64 } },
+            { type: 'text', text: 'Liste APENAS os nomes dos alimentos visíveis nesta imagem, separados por vírgula. Responda SOMENTE com a lista, sem explicações. Ex: frango, cenoura, alface' }
+          ]
+        }]
+      })
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error.message);
+    const text = data.content[0].text.trim();
+    const items = text.split(',').map(s => s.trim()).filter(Boolean);
+    showDetected(items);
+    document.getElementById('cameraRecipeOutput').innerHTML = '';
+  } catch (e) {
+    document.getElementById('cameraRecipeOutput').innerHTML = `<div class="loading-card"><div class="loading-msg">❌ Erro: ${e.message}</div></div>`;
+  }
+}
+
+function showDetected(items) {
+  const sec = document.getElementById('detectedSection');
+  const cont = document.getElementById('detectedItems');
+  cont.innerHTML = items.map(i => `<span class="detected-chip">${i}</span>`).join('');
+  sec.style.display = 'block';
+}
+
+async function generateRecipeFromCamera() {
+  const items = [...document.querySelectorAll('.detected-chip')].map(c => c.textContent);
+  if (!items.length) return;
+  const profile = DB.getProfile();
+  const prompt = buildPrompt(items.join(', '), profile.goal || 'Saúde geral', profile.restrict || '', 30);
+  await generateAndDisplay(prompt, 'cameraRecipeOutput');
+}
+
+// ══════════════════════════════════════════
+// MANUAL GENERATION
+// ══════════════════════════════════════════
+function toggleChip(el, group) {
+  if (group === 'goal') {
+    document.querySelectorAll('#goalChips .chip').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+  } else {
+    el.classList.toggle('selected');
+  }
+}
+
+async function generateRecipeManual() {
+  const ingredients = document.getElementById('ingredientsInput').value.trim();
+  if (!ingredients) { showToast('⚠️ Adicione ingredientes!'); return; }
+  const goal = document.querySelector('#goalChips .chip.selected')?.textContent || 'Saúde geral';
+  const restrictions = [...document.querySelectorAll('#restrictChips .chip.selected')].map(c => c.textContent).join(', ') || 'Nenhuma';
+  const time = document.getElementById('timeSelect').value;
+  const prompt = buildPrompt(ingredients, goal, restrictions, time);
+  await generateAndDisplay(prompt, 'manualRecipeOutput');
+}
+
+function buildPrompt(ingredients, goal, restrictions, time) {
+  const savedRecipes = DB.getRecipes().map(r => r.title).slice(0, 10);
+  const avoidList = savedRecipes.length ? `\nReceitas já salvas (NÃO repita): ${savedRecipes.join(', ')}` : '';
+  return `Crie uma receita saudável detalhada em português brasileiro com os seguintes requisitos:
+
+INGREDIENTES: ${ingredients}
+OBJETIVO: ${goal}
+RESTRIÇÕES: ${restrictions || 'Nenhuma'}
+TEMPO MÁXIMO: ${time} minutos${avoidList}
+
+Responda APENAS com um JSON válido (sem markdown, sem texto fora do JSON) neste formato exato:
+{
+  "title": "Nome criativo da receita",
+  "emoji": "🥗",
+  "time": 25,
+  "servings": 2,
+  "difficulty": "Fácil",
+  "calories": 320,
+  "protein": 28,
+  "carbs": 18,
+  "fat": 12,
+  "ingredients": ["200g de frango", "1 xícara de brócolis"],
+  "steps": ["Aqueça a frigideira", "Adicione o frango"],
+  "tip": "Dica nutricional relevante",
+  "benefits": "Benefícios desta receita para o objetivo"
+}`;
+}
+
+async function generateAndDisplay(prompt, outputId) {
+  const key = getApiKey();
+  if (!key) { showToast('⚠️ Insira sua API Key primeiro!'); return; }
+
+  document.getElementById(outputId).innerHTML = `
+    <div class="loading-card">
+      <div class="spinner"></div>
+      <div class="loading-msg">✨ IA criando sua receita personalizada...</div>
+    </div>`;
+
+  const btn = document.getElementById(outputId === 'cameraRecipeOutput' ? 'genFromCamBtn' : 'genManualBtn');
+  if (btn) btn.disabled = true;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+      body: JSON.stringify({
+        model: 'claude-opus-4-5',
+        max_tokens: 1200,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error.message);
+    const text = data.content[0].text.trim();
+    const clean = text.replace(/```json|```/g, '').trim();
+    const recipe = JSON.parse(clean);
+    DB.incrementTotal();
+    document.getElementById(outputId).innerHTML = renderRecipeCard(recipe);
+    if (btn) btn.disabled = false;
+  } catch (e) {
+    document.getElementById(outputId).innerHTML = `<div class="loading-card"><div class="loading-msg">❌ Erro: ${e.message}</div></div>`;
+    if (btn) btn.disabled = false;
+  }
+}
+
+// ══════════════════════════════════════════
+// RECIPE CARD RENDERER
+// ══════════════════════════════════════════
+function renderRecipeCard(r, fromSaved = false) {
+  const id = 'recipe_' + Date.now();
+  window[id] = r;
+  return `
+  <div class="recipe-card">
+    <div class="recipe-header">
+      <div class="recipe-title">${r.emoji || '🍽️'} ${r.title}</div>
+      <div class="recipe-meta">
+        <div class="meta-pill">⏱️ ${r.time} min</div>
+        <div class="meta-pill">🍽️ ${r.servings} porções</div>
+        <div class="meta-pill">📊 ${r.difficulty}</div>
+      </div>
+    </div>
+    <div class="recipe-body">
+      <div class="recipe-section">
+        <h4>📊 Informação Nutricional (por porção)</h4>
+        <div class="nutrition-grid">
+          <div class="nutr-box"><div class="nutr-value">${r.calories}</div><div class="nutr-label">Calorias</div></div>
+          <div class="nutr-box"><div class="nutr-value">${r.protein}g</div><div class="nutr-label">Proteína</div></div>
+          <div class="nutr-box"><div class="nutr-value">${r.carbs}g</div><div class="nutr-label">Carboidratos</div></div>
+          <div class="nutr-box"><div class="nutr-value">${r.fat}g</div><div class="nutr-label">Gorduras</div></div>
+        </div>
+      </div>
+      <div class="recipe-section">
+        <h4>🌿 Ingredientes</h4>
+        <ul class="ingredient-list">
+          ${(r.ingredients || []).map(i => `<li>${i}</li>`).join('')}
+        </ul>
+      </div>
+      <div class="recipe-section">
+        <h4>👨‍🍳 Modo de Preparo</h4>
+        <ol class="step-list">
+          ${(r.steps || []).map(s => `<li>${s}</li>`).join('')}
+        </ol>
+      </div>
+      ${r.tip ? `<div style="background:var(--green-pale);border-radius:12px;padding:14px;font-size:0.88rem;line-height:1.5;color:var(--green-deep);">💡 <strong>Dica:</strong> ${r.tip}</div>` : ''}
+      ${r.benefits ? `<div style="margin-top:12px;font-size:0.85rem;color:var(--text-mid);line-height:1.5;">🎯 ${r.benefits}</div>` : ''}
+    </div>
+    <div class="card-actions">
+      ${!fromSaved ? `<button class="btn-primary" style="flex:2" onclick="doSave('${id}')">💾 Salvar no Banco</button>` : ''}
+      <button class="btn-secondary" style="flex:1" onclick="shareRecipe('${id}')">📤 Compartilhar</button>
+    </div>
+  </div>`;
+}
+
+function doSave(id) {
+  const r = window[id];
+  if (!r) return;
+  const ok = DB.saveRecipe(r);
+  if (ok) showToast('✅ Receita salva com sucesso!');
+}
+
+function shareRecipe(id) {
+  const r = window[id];
+  if (!r) return;
+  const text = `🥗 ${r.title}\n⏱️ ${r.time}min | ${r.calories}kcal | Proteína: ${r.protein}g\n\nGerado pelo NutriIA 🌿`;
+  if (navigator.share) navigator.share({ title: r.title, text });
+  else { navigator.clipboard?.writeText(text); showToast('📋 Copiado!'); }
+}
+
+// ══════════════════════════════════════════
+// SAVED PANEL
+// ══════════════════════════════════════════
+function renderSaved() {
+  const list = DB.getRecipes();
+  const cont = document.getElementById('savedList');
+  if (!list.length) {
+    cont.innerHTML = `<div class="empty-state"><div class="big">📭</div><p>Nenhuma receita salva ainda.<br>Gere uma receita e clique em "Salvar"!</p></div>`;
+    return;
+  }
+  cont.innerHTML = list.map(r => {
+    const rid = 'saved_' + r.id;
+    window[rid] = r;
+    return `<div class="saved-card" onclick="openSavedRecipe('${rid}')">
+      <div class="saved-icon">${r.emoji || '🍽️'}</div>
+      <div class="saved-info">
+        <div class="saved-name">${r.title}</div>
+        <div class="saved-meta">⏱️ ${r.time}min · ${r.calories}kcal · Salva em ${r.savedAt}</div>
+      </div>
+      <button class="del-btn" onclick="event.stopPropagation();deleteRecipe(${r.id})">🗑️</button>
+    </div>`;
+  }).join('');
+}
+
+function openSavedRecipe(rid) {
+  const r = window[rid];
+  if (!r) return;
+  document.getElementById('modalContent').innerHTML = renderRecipeCard(r, true);
+  document.getElementById('recipeModal').classList.add('open');
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('recipeModal')) {
+    document.getElementById('recipeModal').classList.remove('open');
+  }
+}
+
+function deleteRecipe(id) {
+  DB.deleteRecipe(id);
+  showToast('🗑️ Receita removida');
+  renderSaved();
+}
+
+// ══════════════════════════════════════════
+// PROFILE
+// ══════════════════════════════════════════
+function renderProfile() {
+  const p = DB.getProfile();
+  if (p.name) {
+    document.getElementById('nameInput').value = p.name;
+    document.getElementById('profileName').textContent = p.name;
+  }
+  if (p.goal) document.getElementById('goalSelect').value = p.goal;
+  if (p.restrict) document.getElementById('restrictInput').value = p.restrict;
+  updateStats();
+}
+
+function saveProfile() {
+  const p = {
+    name: document.getElementById('nameInput').value,
+    goal: document.getElementById('goalSelect').value,
+    restrict: document.getElementById('restrictInput').value,
+  };
+  DB.saveProfile_(p);
+  if (p.name) document.getElementById('profileName').textContent = p.name;
+}
+
+function updateStats() {
+  document.getElementById('statTotal').textContent = DB.getTotal();
+  document.getElementById('statSaved').textContent = DB.getRecipes().length;
+  const days = DB.get('days') || 1;
+  document.getElementById('statDays').textContent = days;
+}
+
+function clearAllData() {
+  if (!confirm('Apagar TODOS os dados? Esta ação não pode ser desfeita.')) return;
+  ['recipes','profile','totalGenerated','apikey','days'].forEach(k => localStorage.removeItem('nutria_'+k));
+  showToast('🗑️ Dados apagados');
+  renderProfile();
+}
+
+// ══════════════════════════════════════════
+// TOAST
+// ══════════════════════════════════════════
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ══════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════
+(function init() {
+  // Track days
+  const today = new Date().toDateString();
+  const lastDay = DB.get('lastDay');
+  if (lastDay !== today) {
+    DB.set('lastDay', today);
+    DB.set('days', (DB.get('days') || 0) + 1);
+  }
+  // Show API key hint if not set
+  if (!DB.getApiKey()) {
+    document.getElementById('apiKeyInput').placeholder = '🔑 Cole sua Anthropic API Key para começar...';
+  }
+  updateStats();
+})();
+</script>
+</body>
+</html>
