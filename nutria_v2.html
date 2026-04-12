@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>NutriIA 2.0 — Guia Alimentar Brasileiro</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #141210;
+  --paper: #f5f0e8;
+  --paper2: #ede8dc;
+  --paper3: #e0d9cc;
+  --moss: #3d6b47;
+  --moss-light: #5a9467;
+  --moss-pale: #c8dfc9;
+  --moss-faint: #eaf2ea;
+  --earth: #8b5e3c;
+  --earth-light: #c49a6c;
+  --earth-pale: #f2e4d4;
+  --sun: #d4930a;
+  --sun-pale: #fdf3d0;
+  --red: #b83232;
+  --red-pale: #fde8e8;
+  --blue: #2c5f8a;
+  --blue-pale: #e0ecf7;
+  --text: #2a2520;
+  --text-mid: #6b5f52;
+  --text-light: #9e9085;
+  --shadow-sm: 0 2px 12px rgba(20,18,16,0.08);
+  --shadow: 0 6px 30px rgba(20,18,16,0.12);
+  --shadow-lg: 0 16px 60px rgba(20,18,16,0.18);
+  --r: 16px;
+  --r-sm: 10px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { -webkit-tap-highlight-color: transparent; }
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--paper);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── SPLASH ── */
+#splash {
+  position: fixed; inset: 0; z-index: 1000;
+  background: var(--moss);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 24px;
+  transition: opacity 0.6s ease;
+}
+#splash.hide { opacity: 0; pointer-events: none; }
+.splash-logo { font-family:'Fraunces',serif; font-size:3rem; color:#fff; font-weight:900; letter-spacing:-1px; }
+.splash-logo span { color: var(--earth-light); }
+.splash-sub { color: rgba(255,255,255,0.7); font-size:0.85rem; letter-spacing:1px; text-transform:uppercase; }
+.splash-leaf { font-size:3.5rem; animation: float 2s ease-in-out infinite; }
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+
+/* ── HEADER ── */
+header {
+  background: var(--moss);
+  padding: 16px 20px 12px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top:0; z-index:100;
+}
+.logo { font-family:'Fraunces',serif; font-size:1.5rem; font-weight:900; color:#fff; letter-spacing:-0.5px; }
+.logo em { color:var(--earth-light); font-style:normal; }
+.logo-version { font-size:0.65rem; background:var(--earth-light); color:var(--ink); border-radius:4px; padding:1px 5px; margin-left:4px; font-weight:700; vertical-align:middle; }
+.header-right { display:flex; gap:8px; align-items:center; }
+.hdr-btn { background:rgba(255,255,255,0.15); border:none; color:#fff; border-radius:8px; padding:7px 12px; font-size:0.78rem; font-weight:600; cursor:pointer; font-family:inherit; transition:all 0.2s; }
+.hdr-btn:hover { background:rgba(255,255,255,0.25); }
+
+/* ── NOVA BADGE ── */
+.nova-strip {
+  background: var(--moss-faint);
+  border-bottom: 2px solid var(--moss-pale);
+  padding: 8px 16px;
+  display: flex; gap:8px; align-items:center; overflow-x:auto;
+  scrollbar-width: none;
+}
+.nova-strip::-webkit-scrollbar { display:none; }
+.nova-tag {
+  flex-shrink:0; display:flex; align-items:center; gap:5px;
+  background:#fff; border-radius:20px; padding:4px 12px;
+  font-size:0.72rem; font-weight:600; cursor:pointer;
+  border:2px solid transparent; transition:all 0.15s;
+  white-space:nowrap;
+}
+.nova-tag.n1 { color:var(--moss); border-color:var(--moss-pale); }
+.nova-tag.n2 { color:var(--blue); border-color:var(--blue-pale); }
+.nova-tag.n3 { color:var(--earth); border-color:var(--earth-pale); }
+.nova-tag.n4 { color:var(--red); border-color:var(--red-pale); }
+.nova-tag.active { filter:brightness(0.9); transform:scale(0.97); }
+.nova-tag .dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.n1 .dot { background:var(--moss); }
+.n2 .dot { background:var(--blue); }
+.n3 .dot { background:var(--earth); }
+.n4 .dot { background:var(--red); }
+.nova-info-label { font-size:0.7rem; color:var(--text-light); flex-shrink:0; margin-right:4px; }
+
+/* ── TABS ── */
+.tabs {
+  display:flex; background:#fff;
+  border-bottom:2px solid var(--paper3);
+  position:sticky; top:60px; z-index:99;
+}
+.tab {
+  flex:1; padding:12px 4px 10px;
+  border:none; background:none; color:var(--text-light);
+  font-family:inherit; font-size:0.72rem; font-weight:600;
+  cursor:pointer; border-bottom:3px solid transparent;
+  margin-bottom:-2px; transition:all 0.2s;
+  display:flex; flex-direction:column; align-items:center; gap:3px;
+}
+.tab .icon { font-size:1.2rem; }
+.tab.active { color:var(--moss); border-bottom-color:var(--moss); }
+
+/* ── PANELS ── */
+.panel { display:none; padding:16px 16px 120px; }
+.panel.active { display:block; animation:fadeUp 0.3s ease; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:none} }
+
+/* ── API KEY BAR ── */
+.key-bar {
+  background: var(--sun-pale);
+  border: 2px solid var(--sun);
+  border-radius: var(--r-sm);
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.key-bar input { flex:1; border:none; outline:none; background:transparent; font-family:inherit; font-size:0.83rem; color:var(--text); }
+.key-bar button { background:var(--sun); color:#fff; border:none; border-radius:7px; padding:6px 12px; font-size:0.78rem; font-weight:700; cursor:pointer; font-family:inherit; }
+.key-bar .key-icon { font-size:1rem; flex-shrink:0; }
+.key-bar.saved { background:var(--moss-faint); border-color:var(--moss-pale); }
+
+/* ── CAMERA ── */
+.cam-box {
+  background:var(--ink); border-radius:var(--r); overflow:hidden;
+  position:relative; aspect-ratio:4/3; margin-bottom:12px;
+  display:flex; align-items:center; justify-content:center;
+}
+#videoEl { width:100%; height:100%; object-fit:cover; display:none; }
+#snapCanvas { width:100%; height:100%; object-fit:cover; display:none; }
+.cam-ph { display:flex; flex-direction:column; align-items:center; gap:10px; color:rgba(255,255,255,0.5); font-size:0.85rem; }
+.cam-ph .big { font-size:3.5rem; opacity:0.6; }
+.cam-overlay { position:absolute; bottom:14px; left:0; right:0; display:none; justify-content:center; gap:14px; }
+.cam-btn { background:#fff; border:none; border-radius:50%; width:52px; height:52px; font-size:1.4rem; cursor:pointer; box-shadow:0 4px 16px rgba(0,0,0,0.35); display:flex; align-items:center; justify-content:center; transition:transform 0.15s; }
+.cam-btn:hover { transform:scale(1.1); }
+.cam-btn.snap { width:64px; height:64px; font-size:1.8rem; background:var(--moss-light); }
+
+.btn-row { display:flex; gap:10px; margin-bottom:12px; }
+.btn-primary {
+  flex:1; padding:14px 16px; background:var(--moss); color:#fff;
+  border:none; border-radius:var(--r-sm); font-family:inherit; font-size:0.92rem;
+  font-weight:700; cursor:pointer; transition:all 0.2s;
+  box-shadow:0 4px 16px rgba(61,107,71,0.3);
+  display:flex; align-items:center; justify-content:center; gap:8px;
+}
+.btn-primary:hover { background:var(--moss-light); transform:translateY(-1px); }
+.btn-primary:disabled { opacity:0.45; cursor:not-allowed; transform:none; }
+.btn-outline { flex:1; padding:14px 16px; background:transparent; color:var(--moss); border:2px solid var(--moss); border-radius:var(--r-sm); font-family:inherit; font-size:0.92rem; font-weight:700; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; justify-content:center; gap:8px; }
+.btn-outline:hover { background:var(--moss); color:#fff; }
+.btn-danger { background:var(--red); box-shadow:none; }
+.btn-danger:hover { background:#922020; }
+
+/* ── DETECTED ── */
+.detected-box { background:#fff; border-radius:var(--r-sm); padding:14px; margin-bottom:12px; box-shadow:var(--shadow-sm); }
+.detected-box h4 { font-size:0.75rem; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-light); margin-bottom:10px; font-weight:700; }
+.chips-wrap { display:flex; flex-wrap:wrap; gap:7px; }
+.detect-chip {
+  background:var(--earth-pale); color:var(--earth);
+  border-radius:20px; padding:5px 13px; font-size:0.8rem; font-weight:600;
+  cursor:pointer; border:2px solid transparent; transition:all 0.15s;
+}
+.detect-chip.removed { text-decoration:line-through; opacity:0.4; }
+.detect-chip:hover { border-color:var(--earth); }
+
+/* ── MANUAL FORM ── */
+.card {
+  background:#fff; border-radius:var(--r); padding:18px;
+  box-shadow:var(--shadow-sm); margin-bottom:12px;
+}
+.card-title { font-family:'Fraunces',serif; font-size:1.1rem; font-weight:700; color:var(--moss); margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+.field { margin-bottom:12px; }
+.field label { font-size:0.72rem; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-light); font-weight:700; display:block; margin-bottom:5px; }
+.field input, .field textarea, .field select {
+  width:100%; border:2px solid var(--paper3); border-radius:var(--r-sm); padding:10px 13px;
+  font-family:inherit; font-size:0.9rem; color:var(--text); background:var(--paper);
+  outline:none; transition:border-color 0.2s; resize:none;
+}
+.field input:focus, .field textarea:focus, .field select:focus { border-color:var(--moss); background:#fff; }
+
+.chip-set { display:flex; flex-wrap:wrap; gap:7px; }
+.chip {
+  background:var(--paper2); color:var(--text-mid); border-radius:20px;
+  padding:6px 14px; font-size:0.8rem; font-weight:600; cursor:pointer;
+  border:2px solid transparent; transition:all 0.15s; font-family:inherit;
+  border-color:var(--paper3);
+}
+.chip.on { background:var(--moss); color:#fff; border-color:var(--moss); }
+.chip.on.earth { background:var(--earth); border-color:var(--earth); }
+.chip.on.blue { background:var(--blue); border-color:var(--blue); }
+
+/* ── NOVA INDICATOR on card ── */
+.nova-indicator {
+  display:flex; gap:8px; margin-bottom:14px; padding:12px; background:var(--paper); border-radius:var(--r-sm);
+}
+.nova-dot-block { display:flex; flex-direction:column; align-items:center; gap:3px; flex:1; cursor:pointer; padding:6px; border-radius:8px; transition:background 0.15s; }
+.nova-dot-block:hover { background:var(--paper2); }
+.nova-dot-block .nd { width:18px; height:18px; border-radius:50%; margin:0 auto; }
+.nova-dot-block .nl { font-size:0.62rem; font-weight:700; color:var(--text-light); text-align:center; line-height:1.2; }
+.nd1 { background:var(--moss); }
+.nd2 { background:var(--blue); }
+.nd3 { background:var(--earth); }
+.nd4 { background:var(--red); }
+
+/* ── RECIPE CARD ── */
+.recipe-card { background:#fff; border-radius:var(--r); overflow:hidden; box-shadow:var(--shadow-lg); margin-bottom:14px; animation:fadeUp 0.4s ease; }
+.rh { background:linear-gradient(140deg, var(--moss), #2a4f34); padding:22px 20px; color:#fff; position:relative; overflow:hidden; }
+.rh::before { content:''; position:absolute; right:-20px; top:-20px; width:120px; height:120px; background:rgba(255,255,255,0.06); border-radius:50%; }
+.rh::after { content:''; position:absolute; right:20px; bottom:-30px; width:80px; height:80px; background:rgba(255,255,255,0.04); border-radius:50%; }
+.rh-emoji { font-size:2.8rem; margin-bottom:8px; }
+.rh-title { font-family:'Fraunces',serif; font-size:1.5rem; font-weight:900; line-height:1.2; margin-bottom:10px; }
+.rh-pills { display:flex; flex-wrap:wrap; gap:7px; }
+.rh-pill { background:rgba(255,255,255,0.15); border-radius:20px; padding:4px 12px; font-size:0.75rem; display:flex; align-items:center; gap:5px; }
+.rb { padding:20px; }
+.rs { margin-bottom:18px; }
+.rs-title { font-size:0.72rem; text-transform:uppercase; letter-spacing:1px; color:var(--moss); font-weight:700; margin-bottom:10px; display:flex; align-items:center; gap:6px; }
+.nutr-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+.nb { background:var(--paper); border-radius:10px; padding:12px 6px; text-align:center; }
+.nv { font-family:'Fraunces',serif; font-size:1.2rem; font-weight:700; color:var(--moss); }
+.nl { font-size:0.68rem; color:var(--text-light); margin-top:2px; }
+.ing-list { list-style:none; }
+.ing-list li { padding:7px 0; border-bottom:1px solid var(--paper2); font-size:0.88rem; display:flex; align-items:center; gap:8px; }
+.ing-list li:last-child { border:none; }
+.ing-list li::before { content:'🌿'; font-size:0.75rem; flex-shrink:0; }
+.step-list { list-style:none; counter-reset:step; }
+.step-list li { counter-increment:step; padding:10px 0 10px 38px; border-bottom:1px dashed var(--paper2); font-size:0.88rem; line-height:1.55; position:relative; }
+.step-list li:last-child { border:none; }
+.step-list li::before { content:counter(step); position:absolute; left:0; top:10px; width:26px; height:26px; background:var(--moss-light); color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:700; }
+.nova-alert { border-radius:10px; padding:12px 14px; font-size:0.82rem; line-height:1.5; margin-bottom:10px; display:flex; gap:10px; align-items:flex-start; }
+.nova-alert.good { background:var(--moss-faint); color:var(--moss); }
+.nova-alert.warn { background:var(--earth-pale); color:var(--earth); }
+.nova-alert.bad { background:var(--red-pale); color:var(--red); }
+.tip-box { background:var(--sun-pale); border-left:4px solid var(--sun); border-radius:0 10px 10px 0; padding:12px 14px; font-size:0.83rem; line-height:1.5; color:var(--earth); }
+.rc-actions { padding:0 20px 20px; display:flex; gap:9px; }
+
+/* ── 10 PASSOS ── */
+.passos-grid { display:grid; gap:10px; }
+.passo-card {
+  background:#fff; border-radius:var(--r-sm); padding:16px;
+  box-shadow:var(--shadow-sm); display:flex; gap:14px; align-items:flex-start;
+  cursor:pointer; transition:all 0.2s;
+  border-left:5px solid var(--moss-pale);
+}
+.passo-card:hover { transform:translateX(4px); box-shadow:var(--shadow); border-left-color:var(--moss); }
+.passo-num { font-family:'Fraunces',serif; font-size:2rem; font-weight:900; color:var(--moss-pale); flex-shrink:0; line-height:1; width:36px; text-align:center; }
+.passo-card:hover .passo-num { color:var(--moss-light); }
+.passo-body .passo-title { font-weight:700; font-size:0.92rem; color:var(--ink); margin-bottom:4px; }
+.passo-body .passo-desc { font-size:0.8rem; color:var(--text-mid); line-height:1.5; }
+.passo-expand { display:none; margin-top:10px; font-size:0.82rem; color:var(--text); line-height:1.6; background:var(--paper); border-radius:8px; padding:10px; }
+.passo-card.open .passo-expand { display:block; }
+
+/* ── SAVED ── */
+.saved-card {
+  background:#fff; border-radius:var(--r-sm); padding:14px 16px;
+  box-shadow:var(--shadow-sm); margin-bottom:10px;
+  display:flex; align-items:center; gap:12px; cursor:pointer;
+  border-left:5px solid var(--moss-light); transition:all 0.2s;
+}
+.saved-card:hover { transform:translateX(4px); box-shadow:var(--shadow); }
+.saved-icon { font-size:1.8rem; flex-shrink:0; }
+.saved-info { flex:1; }
+.saved-name { font-weight:700; font-size:0.9rem; margin-bottom:3px; }
+.saved-meta { font-size:0.75rem; color:var(--text-light); }
+.del-btn { background:none; border:none; font-size:1rem; cursor:pointer; color:var(--red); opacity:0.5; padding:6px; transition:opacity 0.15s; }
+.del-btn:hover { opacity:1; }
+.search-bar { display:flex; gap:8px; margin-bottom:12px; }
+.search-bar input { flex:1; border:2px solid var(--paper3); border-radius:var(--r-sm); padding:10px 14px; font-family:inherit; font-size:0.9rem; outline:none; background:var(--paper); transition:border-color 0.2s; }
+.search-bar input:focus { border-color:var(--moss); background:#fff; }
+
+/* ── LOADING ── */
+.load-card { background:#fff; border-radius:var(--r); padding:40px 20px; text-align:center; box-shadow:var(--shadow-sm); }
+.spinner { width:44px; height:44px; border:4px solid var(--paper3); border-top-color:var(--moss); border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto 16px; }
+@keyframes spin { to{transform:rotate(360deg)} }
+.load-msg { color:var(--text-mid); font-size:0.88rem; }
+.load-steps { margin-top:14px; display:flex; flex-direction:column; gap:6px; }
+.load-step { font-size:0.78rem; color:var(--text-light); display:flex; align-items:center; gap:8px; }
+.load-step::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--moss-pale); flex-shrink:0; }
+.load-step.done::before { background:var(--moss); }
+
+/* ── NOVA MODAL ── */
+.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:300; display:none; align-items:flex-end; }
+.modal-overlay.open { display:flex; }
+.modal-sheet { background:var(--paper); border-radius:24px 24px 0 0; padding:20px 20px 44px; width:100%; max-height:88vh; overflow-y:auto; animation:slideSheet 0.35s ease; }
+@keyframes slideSheet { from{transform:translateY(100%)} to{transform:none} }
+.modal-handle { width:36px; height:4px; background:var(--paper3); border-radius:2px; margin:0 auto 18px; }
+.modal-close-btn { float:right; background:var(--paper2); border:none; border-radius:50%; width:30px; height:30px; cursor:pointer; font-size:0.9rem; display:flex; align-items:center; justify-content:center; margin-top:-4px; }
+
+/* ── PROFILE ── */
+.profile-hero { background:linear-gradient(140deg, var(--moss), var(--ink)); border-radius:var(--r); padding:24px 20px; color:#fff; margin-bottom:14px; display:flex; align-items:center; gap:16px; }
+.p-avatar { width:60px; height:60px; background:rgba(255,255,255,0.2); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:2rem; flex-shrink:0; }
+.p-name { font-family:'Fraunces',serif; font-size:1.3rem; font-weight:700; }
+.p-sub { font-size:0.8rem; opacity:0.7; margin-top:3px; }
+.stats-row { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:14px; }
+.stat { background:#fff; border-radius:var(--r-sm); padding:14px 10px; text-align:center; box-shadow:var(--shadow-sm); }
+.sv { font-family:'Fraunces',serif; font-size:1.6rem; font-weight:900; color:var(--moss); }
+.sl { font-size:0.7rem; color:var(--text-light); margin-top:3px; }
+
+/* ── EMPTY ── */
+.empty { text-align:center; padding:50px 20px; color:var(--text-light); }
+.empty .e-icon { font-size:3rem; margin-bottom:14px; }
+.empty p { font-size:0.88rem; line-height:1.6; }
+
+/* ── TOAST ── */
+#toast {
+  position:fixed; bottom:80px; left:50%; transform:translateX(-50%) translateY(12px);
+  background:var(--ink); color:#fff; padding:10px 22px; border-radius:24px;
+  font-size:0.85rem; font-weight:500; opacity:0; transition:all 0.28s;
+  z-index:999; white-space:nowrap; pointer-events:none;
+}
+#toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+/* ── SECTION HEADER ── */
+.sec-hdr { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+.sec-title { font-family:'Fraunces',serif; font-size:1.1rem; font-weight:700; color:var(--ink); }
+.sec-badge { background:var(--moss-faint); color:var(--moss); border-radius:20px; padding:4px 10px; font-size:0.75rem; font-weight:700; }
+
+/* ── API DOCS ── */
+.api-block { background:var(--ink); border-radius:var(--r-sm); padding:16px; font-family:'Courier New',monospace; font-size:0.75rem; color:#a8d5b5; overflow-x:auto; margin-bottom:12px; }
+.api-block .comment { color:#6a8f72; }
+.api-block .key { color:#f0c06a; }
+.api-block .val { color:#a8d5b5; }
+.api-block .str { color:#f0a8a8; }
+
+::-webkit-scrollbar { width:4px; }
+::-webkit-scrollbar-thumb { background:var(--paper3); border-radius:2px; }
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="splash">
+  <div class="splash-leaf">🌿</div>
+  <div class="splash-logo">Nutri<em>IA</em> <span style="font-size:1rem;color:rgba(255,255,255,0.5)">2.0</span></div>
+  <div class="splash-sub">Guia Alimentar Brasileiro • Ministério da Saúde</div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div>
+    <div class="logo">Nutri<em>IA</em><span class="logo-version">v2.0</span></div>
+    <div style="font-size:0.68rem;color:rgba(255,255,255,0.6);margin-top:2px;">Baseado no Guia Alimentar BRASIL 2014</div>
+  </div>
+  <div class="header-right">
+    <button class="hdr-btn" onclick="showNovaInfo()">Classificação NOVA</button>
+    <button class="hdr-btn" onclick="switchTab('api')">API</button>
+  </div>
+</header>
+
+<!-- NOVA STRIP -->
+<div class="nova-strip">
+  <span class="nova-info-label">NOVA:</span>
+  <div class="nova-tag n1" onclick="filterByNova(1,this)"><div class="dot"></div>In natura</div>
+  <div class="nova-tag n2" onclick="filterByNova(2,this)"><div class="dot"></div>Min. processados</div>
+  <div class="nova-tag n3" onclick="filterByNova(3,this)"><div class="dot"></div>Processados</div>
+  <div class="nova-tag n4" onclick="filterByNova(4,this)"><div class="dot"></div>Ultraprocessados ⚠️</div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('camera')" id="tab-camera"><span class="icon">📸</span>Câmera</button>
+  <button class="tab" onclick="switchTab('manual')" id="tab-manual"><span class="icon">✍️</span>Manual</button>
+  <button class="tab" onclick="switchTab('passos')" id="tab-passos"><span class="icon">🥦</span>10 Passos</button>
+  <button class="tab" onclick="switchTab('saved')" id="tab-saved"><span class="icon">📚</span>Salvas</button>
+  <button class="tab" onclick="switchTab('profile')" id="tab-profile"><span class="icon">👤</span>Perfil</button>
+</div>
+
+<!-- ════════════ CAMERA PANEL ════════════ -->
+<div id="panel-camera" class="panel active">
+  <div class="key-bar" id="keyBar">
+    <span class="key-icon">🔑</span>
+    <input type="password" id="apiKey" placeholder="Cole sua Anthropic API Key aqui...">
+    <button onclick="saveKey()">Salvar</button>
+  </div>
+
+  <div class="cam-box">
+    <div class="camera-placeholder" id="camPh"><div class="cam-ph"><div class="big">🥦</div><div>Abra a câmera ou carregue<br>uma foto de alimentos</div></div></div>
+    <video id="videoEl" autoplay playsinline></video>
+    <canvas id="snapCanvas"></canvas>
+    <div class="cam-overlay" id="camOverlay">
+      <button class="cam-btn" onclick="flipCam()">🔄</button>
+      <button class="cam-btn snap" onclick="snap()">📷</button>
+      <button class="cam-btn" onclick="stopCam()">✖️</button>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn-primary" onclick="startCam()">📸 Câmera</button>
+    <label class="btn-outline" style="cursor:pointer">🖼️ Galeria<input type="file" accept="image/*" style="display:none" onchange="fromGallery(event)"></label>
+  </div>
+
+  <div id="detectedBox" style="display:none">
+    <div class="detected-box">
+      <h4>🔍 Alimentos detectados (toque para remover)</h4>
+      <div class="chips-wrap" id="detectedChips"></div>
+    </div>
+    <div class="card" style="padding:14px;margin-bottom:12px;">
+      <div class="card-title" style="font-size:0.9rem;margin-bottom:8px;">🎯 Objetivo</div>
+      <div class="chip-set" id="camGoalChips">
+        <button class="chip on" onclick="togChip(this,'cg')">Emagrecer</button>
+        <button class="chip" onclick="togChip(this,'cg')">Ganhar massa</button>
+        <button class="chip" onclick="togChip(this,'cg')">Manutenção</button>
+        <button class="chip" onclick="togChip(this,'cg')">Energia</button>
+      </div>
+    </div>
+    <button class="btn-primary" id="genCamBtn" onclick="genFromCam()" style="width:100%;margin-bottom:12px;">✨ Gerar Receita Baseada no Guia Alimentar</button>
+  </div>
+  <div id="camOut"></div>
+</div>
+
+<!-- ════════════ MANUAL PANEL ════════════ -->
+<div id="panel-manual" class="panel">
+  <div class="card">
+    <div class="card-title">🌿 Criar Receita com IA</div>
+
+    <div class="field">
+      <label>Ingredientes disponíveis</label>
+      <textarea id="ingr" rows="3" placeholder="Ex: arroz, feijão, frango, cenoura, alho, azeite..."></textarea>
+    </div>
+
+    <div class="field">
+      <label>Objetivo nutricional</label>
+      <div class="chip-set" id="goalChips">
+        <button class="chip on" onclick="togChip(this,'goal')">Emagrecer</button>
+        <button class="chip" onclick="togChip(this,'goal')">Ganhar massa</button>
+        <button class="chip" onclick="togChip(this,'goal')">Manutenção</button>
+        <button class="chip" onclick="togChip(this,'goal')">Energia</button>
+        <button class="chip" onclick="togChip(this,'goal')">Saúde geral</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Restrições alimentares</label>
+      <div class="chip-set" id="restChips">
+        <button class="chip" onclick="togChipMulti(this)">Sem glúten</button>
+        <button class="chip" onclick="togChipMulti(this)">Sem lactose</button>
+        <button class="chip" onclick="togChipMulti(this)">Vegano</button>
+        <button class="chip" onclick="togChipMulti(this)">Vegetariano</button>
+        <button class="chip" onclick="togChipMulti(this)">Low carb</button>
+        <button class="chip" onclick="togChipMulti(this)">Sem sódio</button>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
+      <div class="field" style="margin:0">
+        <label>Tempo</label>
+        <select id="timeS">
+          <option value="15">⚡ Até 15 min</option>
+          <option value="30" selected>🕐 Até 30 min</option>
+          <option value="60">🍳 Até 1 hora</option>
+        </select>
+      </div>
+      <div class="field" style="margin:0">
+        <label>Refeição</label>
+        <select id="mealS">
+          <option value="qualquer">Qualquer</option>
+          <option value="café da manhã">Café da manhã</option>
+          <option value="almoço">Almoço</option>
+          <option value="jantar">Jantar</option>
+          <option value="lanche">Lanche</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- NOVA SELECTOR -->
+    <div class="field">
+      <label>Prioridade NOVA (Guia Alimentar)</label>
+      <div class="nova-indicator">
+        <div class="nova-dot-block" onclick="setNovaPref(1,this)" id="novaPref1">
+          <div class="nd nd1"></div>
+          <div class="nl">In natura</div>
+        </div>
+        <div class="nova-dot-block" onclick="setNovaPref(12,this)" id="novaPref12" style="background:var(--paper2);">
+          <div class="nd nd1" style="background:linear-gradient(135deg,var(--moss) 50%,var(--blue) 50%)"></div>
+          <div class="nl">N1+N2 ✓</div>
+        </div>
+        <div class="nova-dot-block" onclick="setNovaPref(3,this)" id="novaPref3">
+          <div class="nd nd3"></div>
+          <div class="nl">Processados</div>
+        </div>
+        <div class="nova-dot-block" onclick="setNovaPref(4,this)" id="novaPref4">
+          <div class="nd nd4"></div>
+          <div class="nl">Ultra ⚠️</div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-primary" id="genManBtn" onclick="genManual()" style="width:100%">✨ Gerar Receita com IA</button>
+  </div>
+  <div id="manOut"></div>
+</div>
+
+<!-- ════════════ 10 PASSOS PANEL ════════════ -->
+<div id="panel-passos" class="panel">
+  <div class="sec-hdr">
+    <div class="sec-title">10 Passos para Alimentação Saudável</div>
+    <div class="sec-badge">Ministério da Saúde 2014</div>
+  </div>
+  <p style="font-size:0.83rem;color:var(--text-mid);margin-bottom:14px;line-height:1.6;">Diretrizes oficiais do <strong>Guia Alimentar para a População Brasileira</strong> (2ª edição). Toque em cada passo para expandir.</p>
+  <div class="passos-grid" id="passosGrid"></div>
+</div>
+
+<!-- ════════════ SAVED PANEL ════════════ -->
+<div id="panel-saved" class="panel">
+  <div class="search-bar">
+    <input type="search" id="searchInput" placeholder="🔍 Buscar receita salva..." oninput="renderSaved()">
+  </div>
+  <div class="sec-hdr">
+    <div class="sec-title">Banco de Receitas</div>
+    <div class="sec-badge" id="savedCount">0 receitas</div>
+  </div>
+  <div id="savedList"></div>
+</div>
+
+<!-- ════════════ PROFILE PANEL ════════════ -->
+<div id="panel-profile" class="panel">
+  <div class="profile-hero">
+    <div class="p-avatar">🌿</div>
+    <div>
+      <div class="p-name" id="profileName">Usuário NutriIA</div>
+      <div class="p-sub">Pesquisador UPF • Ciência da Computação</div>
+    </div>
+  </div>
+  <div class="stats-row">
+    <div class="stat"><div class="sv" id="stGen">0</div><div class="sl">Geradas</div></div>
+    <div class="stat"><div class="sv" id="stSav">0</div><div class="sl">Salvas</div></div>
+    <div class="stat"><div class="sv" id="stDays">0</div><div class="sl">Dias</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">⚙️ Preferências</div>
+    <div class="field"><label>Nome</label><input type="text" id="nameIn" placeholder="Como quer ser chamado?" oninput="saveProfile()"></div>
+    <div class="field"><label>Objetivo</label>
+      <select id="goalIn" onchange="saveProfile()">
+        <option>Emagrecer</option><option>Ganhar massa muscular</option>
+        <option>Manutenção</option><option>Mais energia</option><option>Saúde geral</option>
+      </select>
+    </div>
+    <div class="field"><label>Restrições alimentares</label><input type="text" id="restIn" placeholder="Ex: sem lactose, vegano..." oninput="saveProfile()"></div>
+  </div>
+  <button class="btn-primary btn-danger" style="width:100%" onclick="clearAll()">🗑️ Limpar Todos os Dados</button>
+</div>
+
+<!-- ════════════ API PANEL ════════════ -->
+<div id="panel-api" class="panel">
+  <div class="sec-hdr">
+    <div class="sec-title">API NutriIA</div>
+    <div class="sec-badge">Baseada no Guia MS 2014</div>
+  </div>
+  <p style="font-size:0.83rem;color:var(--text-mid);margin-bottom:14px;line-height:1.6;">
+    Esta aplicação usa a <strong>API Anthropic (Claude)</strong> com um <em>system prompt especializado</em> baseado nas diretrizes do Guia Alimentar para a População Brasileira — Ministério da Saúde, 2ª edição (2014).<br><br>
+    O sistema de prompt incorpora: <strong>Classificação NOVA</strong>, os <strong>10 Passos</strong>, as categorias de alimentos (in natura, minimamente processados, processados, ultraprocessados) e as recomendações de refeições brasileiras tradicionais.
+  </p>
+
+  <div class="card">
+    <div class="card-title">📡 Endpoint Base</div>
+    <div class="api-block"><span class="key">POST</span> https://api.anthropic.com/v1/messages<br><span class="comment">// Anthropic Claude API — claude-opus-4-5</span></div>
+
+    <div class="card-title" style="margin-top:16px;">🧠 System Prompt NutriIA (trecho)</div>
+    <div class="api-block" style="max-height:220px;overflow-y:auto;font-size:0.7rem;">
+<span class="comment">// SISTEMA: Nutricionista IA — Guia Alimentar Brasileiro</span><br>
+<span class="val">Você é um nutricionista especializado nas diretrizes do</span><br>
+<span class="val">Guia Alimentar para a População Brasileira (MS, 2014).</span><br><br>
+<span class="comment">// CLASSIFICAÇÃO NOVA:</span><br>
+<span class="key">NOVA 1</span> <span class="str">— In natura/minimamente processados (PRIORIDADE MÁXIMA)</span><br>
+<span class="val">Frutas, verduras, legumes, grãos, carnes, ovos, leite</span><br><br>
+<span class="key">NOVA 2</span> <span class="str">— Ingredientes culinários (use com moderação)</span><br>
+<span class="val">Óleos, gorduras, açúcar, sal, farinha</span><br><br>
+<span class="key">NOVA 3</span> <span class="str">— Processados (use com moderação)</span><br>
+<span class="val">Conservas, queijos, pães, embutidos</span><br><br>
+<span class="key">NOVA 4</span> <span class="str">— Ultraprocessados (EVITAR)</span><br>
+<span class="val">Refrigerantes, biscoitos recheados, embutidos industriais</span><br><br>
+<span class="comment">// PRINCÍPIOS DO GUIA:</span><br>
+<span class="val">1. Base da alimentação: alimentos in natura e refeições</span><br>
+<span class="val">   tradicionais brasileiras (arroz, feijão, hortaliças)</span><br>
+<span class="val">2. Óleos, gorduras, sal e açúcar: usar em pequenas</span><br>
+<span class="val">   quantidades para temperar e cozinhar</span><br>
+<span class="val">3. Preferir alimentos produzidos localmente e sazonais</span><br>
+<span class="val">4. Respeitar a cultura alimentar regional brasileira</span><br>
+<span class="val">5. Comer com regularidade e atenção, em ambiente</span><br>
+<span class="val">   tranquilo, preferencialmente em companhia</span>
+    </div>
+
+    <div class="card-title" style="margin-top:16px;">💻 Exemplo de Chamada</div>
+    <div class="api-block" style="font-size:0.7rem;max-height:280px;overflow-y:auto;">
+<span class="comment">// JavaScript — Integração NutriIA API</span><br>
+<span class="key">const</span> <span class="val">response</span> = <span class="key">await</span> fetch(<span class="str">'https://api.anthropic.com/v1/messages'</span>, {<br>
+&nbsp;&nbsp;method: <span class="str">'POST'</span>,<br>
+&nbsp;&nbsp;headers: {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">'Content-Type'</span>: <span class="str">'application/json'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">'x-api-key'</span>: API_KEY,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">'anthropic-version'</span>: <span class="str">'2023-06-01'</span><br>
+&nbsp;&nbsp;},<br>
+&nbsp;&nbsp;body: JSON.stringify({<br>
+&nbsp;&nbsp;&nbsp;&nbsp;model: <span class="str">'claude-opus-4-5'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;max_tokens: <span class="val">1500</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;system: NUTRIA_SYSTEM_PROMPT, <span class="comment">// ver abaixo</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;messages: [{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;role: <span class="str">'user'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;content: buildNutriaPrompt({<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ingredients: <span class="str">'arroz, feijão, frango'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;goal: <span class="str">'Emagrecer'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nova: <span class="val">12</span>, <span class="comment">// NOVA 1+2</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;time: <span class="val">30</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;meal: <span class="str">'almoço'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;savedRecipes: savedList <span class="comment">// anti-repetição</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;})<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}]<br>
+&nbsp;&nbsp;})<br>
+});<br><br>
+<span class="comment">// Resposta: JSON estruturado com title, emoji,</span><br>
+<span class="comment">// time, calories, protein, carbs, fat, ingredients,</span><br>
+<span class="comment">// steps, novaScore, novaAlert, tip, guiaPasso</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📊 Campos da Resposta</div>
+    <div style="font-size:0.82rem;line-height:1.8;color:var(--text-mid);">
+      <code style="background:var(--paper2);padding:1px 5px;border-radius:4px;">title</code> Nome criativo da receita<br>
+      <code style="background:var(--paper2);padding:1px 5px;border-radius:4px;">emoji</code> Emoji representativo<br>
+      <code style="background:var(--paper2);padding:1px 5px;border-radius:4px;">novaScore</code> Classificação NOVA (1-4)<br>
+      <code style="background:var(--paper2);padding:1px 5px;border-radius:4px;">novaAlert</code> Alerta nutricional baseado no Guia<br>
+      <code style="background:var(--paper2);padding:1px 5px;border-radius:4px;">calories / protein / carbs / fat</code> Macro-nutrientes<br>
+      <code style="background:var(--paper2);padding:1px 5px;border-radius:4px;">ingredients[]</code> Lista de ingredientes<br>
+      <code style="background:var(--paper2);padding:1px 5px;border-radius:4px;">steps[]</code> Modo de preparo<br>
+      <code style="background:var(--paper2);padding:1px 5px;border-radius:4px;">tip</code> Dica nutricional do guia<br>
+      <code style="background:var(--paper2);padding:1px 5px;border-radius:4px;">guiaPasso</code> Passo do Guia Alimentar referenciado<br>
+      <code style="background:var(--paper2);padding:1px 5px;border-radius:4px;">sustainability</code> Nota de sustentabilidade (1-5)
+    </div>
+  </div>
+</div>
+
+<!-- MODAL NOVA INFO -->
+<div class="modal-overlay" id="novaModal" onclick="closeModal(event)">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <button class="modal-close-btn" onclick="document.getElementById('novaModal').classList.remove('open')">✕</button>
+    <div id="novaModalContent"></div>
+  </div>
+</div>
+
+<!-- MODAL RECIPE -->
+<div class="modal-overlay" id="recipeModal" onclick="closeModal(event)">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <button class="modal-close-btn" onclick="document.getElementById('recipeModal').classList.remove('open')">✕</button>
+    <div id="recipeModalContent"></div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ══════════════════════════════════════════════════════════
+// SYSTEM PROMPT — BASEADO NO GUIA ALIMENTAR MS 2014
+// ══════════════════════════════════════════════════════════
+const NUTRIA_SYSTEM_PROMPT = `Você é um nutricionista especializado nas diretrizes do Guia Alimentar para a População Brasileira (Ministério da Saúde, 2ª edição, 2014).
+
+## CLASSIFICAÇÃO NOVA (obrigatória em todas as respostas):
+NOVA 1 — Alimentos IN NATURA ou MINIMAMENTE PROCESSADOS: frutas, legumes, verduras, raízes, tubérculos, grãos, cereais, leguminosas, castanhas, nozes, carnes frescas, peixe, ovos, leite, iogurte natural, chás, café. PRIORIZE SEMPRE.
+NOVA 2 — INGREDIENTES CULINÁRIOS processados: óleos vegetais, manteiga, banha, açúcar, sal, vinagre, amidos, farinhas. Use em PEQUENAS QUANTIDADES para temperar e cozinhar.
+NOVA 3 — ALIMENTOS PROCESSADOS: conservas de legumes, frutas em calda, queijos, embutidos simples, pão feito com farinha, água, sal e fermento. Use com MODERAÇÃO.
+NOVA 4 — ULTRAPROCESSADOS: refrigerantes, sucos em pó, biscoitos recheados, salgadinhos, macarrão instantâneo, nuggets, salsicha industrializada, cereais açucarados. EVITE ao máximo.
+
+## 10 PASSOS DO GUIA ALIMENTAR (referencie sempre que relevante):
+1. Prefira alimentos in natura ou minimamente processados
+2. Use óleos, gorduras, sal e açúcar em pequenas quantidades
+3. Limite alimentos processados
+4. Evite ultraprocessados
+5. Coma com regularidade e atenção
+6. Faça suas refeições em ambientes apropriados
+7. Compre em locais que ofereçam variedade de in natura
+8. Desenvolva, exercite e partilhe habilidades culinárias
+9. Compartilhe suas descobertas com outros
+10. Seja crítico quanto a informações e recomendações sobre alimentação
+
+## REFEIÇÕES TRADICIONAIS BRASILEIRAS (base da alimentação):
+- Café da manhã: frutas, pão integral caseiro, ovos, iogurte natural, tapioca
+- Almoço: arroz, feijão, proteína grelhada/cozida, salada crua, legumes cozidos
+- Lanche: frutas, castanhas, iogurte natural, vitaminas
+- Jantar: similar ao almoço, mais leve
+
+## PRINCÍPIOS FUNDAMENTAIS:
+- Alimentos in natura e refeições tradicionais > produtos industrializados
+- Cozinhar em casa é saudável, econômico e culturalmente valoroso
+- Valorizar a culinária regional brasileira
+- Sustentabilidade: preferir alimentos locais, sazonais, produção familiar
+- Sociabilidade: comer em companhia, ambiente tranquilo, sem telas
+- NUNCA recomende ultraprocessados como ingredientes principais
+
+Responda SEMPRE em JSON válido (sem markdown).`;
+
+// ══════════════════════════════════════════════════════════
+// DB
+// ══════════════════════════════════════════════════════════
+const DB = {
+  g: k => { try { return JSON.parse(localStorage.getItem('nia2_'+k)); } catch { return null; } },
+  s: (k,v) => localStorage.setItem('nia2_'+k, JSON.stringify(v)),
+  recipes: () => DB.g('recipes') || [],
+  saveRecipe: r => {
+    const l = DB.recipes();
+    if (l.find(x => x.title === r.title)) { toast('⚠️ Receita já salva!'); return false; }
+    l.unshift({...r, id:Date.now(), savedAt:new Date().toLocaleDateString('pt-BR')});
+    DB.s('recipes', l); updateStats(); return true;
+  },
+  delRecipe: id => { DB.s('recipes', DB.recipes().filter(x=>x.id!==id)); updateStats(); },
+  profile: () => DB.g('profile') || {},
+  key: () => DB.g('key') || '',
+  setKey: k => DB.s('key', k),
+  total: () => DB.g('total') || 0,
+  incTotal: () => DB.s('total', DB.total()+1),
+};
+
+// ══════════════════════════════════════════════════════════
+// 10 PASSOS DATA
+// ══════════════════════════════════════════════════════════
+const PASSOS = [
+  { title:"Prefira alimentos in natura ou minimamente processados", desc:"Faça deles a base da sua alimentação", detail:"Alimentos in natura são os obtidos diretamente de plantas ou animais. Minimamente processados são aqueles que sofreram alterações mínimas, como grãos secos, carnes resfriadas ou leite pasteurizado. Em grande variedade e predominantemente de origem vegetal, são a base de uma alimentação nutricionalmente balanceada, saborosa e culturalmente adequada." },
+  { title:"Use óleos, gorduras, sal e açúcar em pequenas quantidades", desc:"Tempere e cozinhe sem exageros", detail:"Óleos vegetais, manteiga, banha, açúcar e sal são usados para temperar e cozinhar alimentos. Em pequenas quantidades, esses ingredientes tornam a alimentação mais saborosa. O consumo excessivo, no entanto, contribui para doenças como obesidade, hipertensão e diabetes." },
+  { title:"Limite o uso de alimentos processados", desc:"Consuma com moderação", detail:"Os alimentos processados, como conservas, queijos e embutidos simples, podem ser usados, mas em pequenas quantidades em preparações culinárias. Quando muito consumidos, desequilibram a alimentação." },
+  { title:"Evite o consumo de alimentos ultraprocessados", desc:"Refrigerantes, biscoitos, salgadinhos... o menos possível", detail:"Formulações industriais que contêm muitos ingredientes de uso exclusivamente industrial (conservantes, estabilizantes, corantes), com alta densidade energética e baixo valor nutricional. São pobres em fibras e ricos em gorduras, açúcar e sódio. Devem ser evitados." },
+  { title:"Coma com regularidade e atenção", desc:"Faça pelo menos 3 refeições por dia", detail:"Fazer refeições com regularidade significa comer no café da manhã, almoço e jantar em horários regulares, com lanches quando necessário. Comer com atenção, sem pressa, mastigando bem os alimentos, ajuda a perceber os sinais de fome e saciedade." },
+  { title:"Faça suas refeições em ambientes apropriados", desc:"Lugares limpos, confortáveis e tranquilos", detail:"O local onde as pessoas fazem suas refeições influencia o que e quanto comem. Ambientes tranquilos e confortáveis, sem televisão ou telas de computador, facilitam a atenção e o aproveitamento da refeição. Evite comer em frente ao computador, celular ou televisão." },
+  { title:"Compre em locais que ofereçam variedade de alimentos in natura", desc:"Feiras livres, mercados, cooperativas", detail:"Feiras livres, mercados e fruteiras que comercializam alimentos in natura e minimamente processados devem ser preferidos. Esses espaços favorecem o acesso a alimentos frescos e de qualidade, além de fortalecer a economia local e a agricultura familiar." },
+  { title:"Desenvolva, exercite e partilhe habilidades culinárias", desc:"Cozinhar é saudável e prazeroso", detail:"As habilidades culinárias permitem o preparo de refeições variadas, saborosas e nutritivas. Cozinhar em casa contribui para a saúde pois permite o controle dos ingredientes. Compartilhar essas habilidades com familiares e amigos fortalece os laços e a cultura alimentar." },
+  { title:"Compartilhe suas descobertas sobre alimentação saudável", desc:"Com família, amigos e comunidade", detail:"A promoção da alimentação adequada e saudável não é tarefa apenas dos profissionais de saúde. Cada pessoa, família e comunidade pode contribuir para a difusão de práticas alimentares mais saudáveis, partilhando conhecimentos e experiências." },
+  { title:"Seja crítico quanto a informações sobre alimentação", desc:"Nem tudo que parece saudável é saudável", detail:"Muitas informações e recomendações sobre alimentação veiculadas pela mídia são controversas, contraditórias ou baseadas em interesses comerciais. Busque informações em fontes confiáveis, como profissionais de saúde e publicações do Ministério da Saúde, e seja crítico em relação a modismos alimentares e propaganda de alimentos." },
+];
+
+// NOVA INFO
+const NOVA_INFO = {
+  1: { color:'var(--moss)', title:'NOVA 1 — In natura / Minimamente processados', emoji:'🌿', desc:'Obtidos diretamente de plantas ou animais, sem qualquer alteração após deixar a natureza, ou com alterações mínimas.', examples:'Frutas, verduras, legumes, raízes, tubérculos, cogumelos, grãos, cereais, farinhas, carnes frescas, peixe, frutos do mar, ovos, leite, iogurte natural sem açúcar, chás, café.', rec:'⭐ PRIORIZE estes alimentos. Devem ser a BASE da alimentação.' },
+  2: { color:'var(--blue)', title:'NOVA 2 — Ingredientes culinários processados', emoji:'🫙', desc:'Extraídos de alimentos in natura ou diretamente da natureza. Usados para temperar, cozinhar e criar preparações.', examples:'Sal, açúcar, mel, óleos vegetais, manteiga, banha, amidos, farinhas, vinagre.', rec:'✅ Use em PEQUENAS QUANTIDADES. Sozinhos não constituem alimentação.' },
+  3: { color:'var(--earth)', title:'NOVA 3 — Alimentos processados', emoji:'🥫', desc:'Fabricados com adição de sal, açúcar, óleo ou vinagre a alimentos in natura para torná-los mais duráveis.', examples:'Conservas de legumes, frutas em calda, queijos, carne seca, toucinho, anchovas, pão simples, vinho, cerveja, cachaça.', rec:'⚠️ Use com MODERAÇÃO. Em pequenas quantidades como parte de refeições.' },
+  4: { color:'var(--red)', title:'NOVA 4 — Ultraprocessados', emoji:'🚫', desc:'Formulações industriais com muitos ingredientes de uso exclusivamente industrial: conservantes, estabilizantes, corantes, aromatizantes.', examples:'Refrigerantes, sucos artificiais, salgadinhos, biscoitos recheados, macarrão instantâneo, nuggets, salsicha, mortadela industrializada, cereais matinais açucarados, margarina.', rec:'❌ EVITE. Pobres em fibras, ricos em gordura, açúcar e sódio. Não constituem alimentação real.' },
+};
+
+// ══════════════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════════════
+let novaPref = 12; // default NOVA 1+2
+
+window.addEventListener('load', () => {
+  setTimeout(() => { document.getElementById('splash').classList.add('hide'); }, 1800);
+  buildPassos();
+  if (DB.key()) { document.getElementById('keyBar').classList.add('saved'); }
+  loadProfile();
+  updateStats();
+  // track days
+  const today = new Date().toDateString();
+  if (DB.g('lastDay') !== today) { DB.s('lastDay', today); DB.s('days', (DB.g('days')||0)+1); }
+});
+
+// ══════════════════════════════════════════════════════════
+// KEY
+// ══════════════════════════════════════════════════════════
+function saveKey() {
+  const k = document.getElementById('apiKey').value.trim();
+  if (!k) { toast('Cole a API Key!'); return; }
+  DB.setKey(k);
+  document.getElementById('apiKey').value = '';
+  document.getElementById('keyBar').classList.add('saved');
+  toast('🔑 Chave salva!');
+}
+
+// ══════════════════════════════════════════════════════════
+// TABS
+// ══════════════════════════════════════════════════════════
+function switchTab(t) {
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('panel-'+t).classList.add('active');
+  const tb = document.getElementById('tab-'+t);
+  if (tb) tb.classList.add('active');
+  if (t==='saved') renderSaved();
+  if (t==='profile') loadProfile();
+}
+
+// ══════════════════════════════════════════════════════════
+// CAMERA
+// ══════════════════════════════════════════════════════════
+let stream = null, facing = 'environment', snapB64 = null;
+
+async function startCam() {
+  try {
+    if (stream) stopCam();
+    stream = await navigator.mediaDevices.getUserMedia({ video:{ facingMode:facing } });
+    const v = document.getElementById('videoEl');
+    v.srcObject = stream; v.style.display='block';
+    document.getElementById('snapCanvas').style.display='none';
+    document.getElementById('camPh').style.display='none';
+    document.getElementById('camOverlay').style.display='flex';
+  } catch { toast('❌ Câmera indisponível'); }
+}
+function flipCam() { facing = facing==='environment'?'user':'environment'; startCam(); }
+function stopCam() { if(stream){stream.getTracks().forEach(t=>t.stop());stream=null;} document.getElementById('videoEl').style.display='none'; document.getElementById('camPh').style.display='flex'; document.getElementById('camOverlay').style.display='none'; }
+function snap() {
+  const v=document.getElementById('videoEl'), c=document.getElementById('snapCanvas');
+  c.width=v.videoWidth; c.height=v.videoHeight;
+  c.getContext('2d').drawImage(v,0,0);
+  snapB64 = c.toDataURL('image/jpeg',0.8).split(',')[1];
+  c.style.display='block'; v.style.display='none';
+  stopCam(); document.getElementById('camOverlay').style.display='none';
+  analyzeImg(snapB64);
+}
+function fromGallery(e) {
+  const f=e.target.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload = ev => {
+    snapB64 = ev.target.result.split(',')[1];
+    const img=new Image(), c=document.getElementById('snapCanvas');
+    img.onload=()=>{ c.width=img.width; c.height=img.height; c.getContext('2d').drawImage(img,0,0); c.style.display='block'; document.getElementById('camPh').style.display='none'; };
+    img.src=ev.target.result;
+    analyzeImg(snapB64);
+  };
+  r.readAsDataURL(f);
+}
+
+async function analyzeImg(b64) {
+  if (!DB.key()) { toast('⚠️ Insira a API Key!'); return; }
+  document.getElementById('detectedBox').style.display='none';
+  document.getElementById('camOut').innerHTML=loadHtml('🔍 Identificando alimentos...');
+  try {
+    const res = await callAPI([{
+      role:'user', content:[
+        { type:'image', source:{ type:'base64', media_type:'image/jpeg', data:b64 } },
+        { type:'text', text:'Liste SOMENTE os nomes dos alimentos visíveis. Responda APENAS com uma lista separada por vírgula, sem explicações. Ex: arroz, feijão, frango, cenoura' }
+      ]
+    }], 200);
+    const items = res.split(',').map(s=>s.trim()).filter(Boolean);
+    showDetected(items);
+    document.getElementById('camOut').innerHTML='';
+  } catch(e) { document.getElementById('camOut').innerHTML=`<div class="load-card"><div class="load-msg">❌ ${e.message}</div></div>`; }
+}
+
+function showDetected(items) {
+  const ch=document.getElementById('detectedChips');
+  ch.innerHTML=items.map(i=>`<span class="detect-chip" onclick="this.classList.toggle('removed')">${i}</span>`).join('');
+  document.getElementById('detectedBox').style.display='block';
+}
+
+async function genFromCam() {
+  const items=[...document.querySelectorAll('.detect-chip:not(.removed)')].map(c=>c.textContent);
+  if(!items.length){toast('⚠️ Nenhum alimento selecionado!');return;}
+  const goal=document.querySelector('#camGoalChips .chip.on')?.textContent||'Saúde geral';
+  const prompt=buildPrompt(items.join(', '), goal, '', 30, 'qualquer', 12);
+  await genAndDisplay(prompt,'camOut','genCamBtn');
+}
+
+// ══════════════════════════════════════════════════════════
+// MANUAL
+// ══════════════════════════════════════════════════════════
+function togChip(el,group) {
+  document.querySelectorAll('#'+group+'Chips .chip, #cam'+group.charAt(0).toUpperCase()+group.slice(1)+'Chips .chip').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+}
+function togChipMulti(el) { el.classList.toggle('on'); }
+function setNovaPref(n,el) {
+  novaPref=n;
+  document.querySelectorAll('[id^="novaPref"]').forEach(e=>e.style.background='');
+  el.style.background='var(--paper2)';
+}
+
+async function genManual() {
+  const ingr=document.getElementById('ingr').value.trim();
+  if(!ingr){toast('⚠️ Adicione ingredientes!');return;}
+  const goal=document.querySelector('#goalChips .chip.on')?.textContent||'Saúde geral';
+  const rest=[...document.querySelectorAll('#restChips .chip.on')].map(c=>c.textContent).join(', ')||'Nenhuma';
+  const time=document.getElementById('timeS').value;
+  const meal=document.getElementById('mealS').value;
+  const prompt=buildPrompt(ingr,goal,rest,time,meal,novaPref);
+  await genAndDisplay(prompt,'manOut','genManBtn');
+}
+
+// ══════════════════════════════════════════════════════════
+// PROMPT BUILDER — BASEADO NO GUIA ALIMENTAR
+// ══════════════════════════════════════════════════════════
+function buildPrompt(ingr, goal, rest, time, meal, nova) {
+  const saved=DB.recipes().map(r=>r.title).slice(0,12);
+  const avoid=saved.length?`\nRECEITAS JÁ SALVAS (não repetir): ${saved.join(', ')}`:'';
+  const novaMap={1:'Apenas NOVA 1 (in natura)',12:'Priorizar NOVA 1 e 2 (recomendação do Guia Alimentar)',3:'Pode incluir NOVA 3 com moderação',4:'Sem restrição NOVA (não recomendado pelo Guia)'};
+  return `Crie uma receita saudável baseada no Guia Alimentar para a População Brasileira (MS, 2014).
+
+INGREDIENTES DISPONÍVEIS: ${ingr}
+OBJETIVO: ${goal}
+RESTRIÇÕES: ${rest||'Nenhuma'}
+TEMPO MÁXIMO: ${time} minutos
+REFEIÇÃO: ${meal}
+CLASSIFICAÇÃO NOVA: ${novaMap[nova]||novaMap[12]}
+REFERÊNCIA CULTURAL: Culinária brasileira tradicional${avoid}
+
+Responda APENAS com JSON válido neste formato exato (sem texto fora):
+{
+  "title": "Nome criativo da receita",
+  "emoji": "🍲",
+  "time": 25,
+  "servings": 2,
+  "difficulty": "Fácil",
+  "calories": 380,
+  "protein": 30,
+  "carbs": 35,
+  "fat": 10,
+  "novaScore": 1,
+  "novaAlert": "Receita baseada em alimentos in natura, em acordo com o Guia Alimentar Brasileiro.",
+  "ingredients": ["200g de frango grelhado", "1 xícara de arroz integral"],
+  "steps": ["Passo 1", "Passo 2"],
+  "tip": "Dica baseada no Guia Alimentar Brasileiro",
+  "guiaPasso": 1,
+  "sustainability": 5,
+  "regionalNote": "Esta receita valoriza ingredientes tradicionais brasileiros"
+}`;
+}
+
+// ══════════════════════════════════════════════════════════
+// API CALL
+// ══════════════════════════════════════════════════════════
+async function callAPI(messages, maxTokens=1500) {
+  const key=DB.key(); if(!key) throw new Error('API Key não configurada');
+  const res=await fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+    body:JSON.stringify({ model:'claude-opus-4-5', max_tokens:maxTokens, system:NUTRIA_SYSTEM_PROMPT, messages })
+  });
+  const data=await res.json();
+  if(data.error) throw new Error(data.error.message);
+  return data.content.map(i=>i.text||'').join('');
+}
+
+async function genAndDisplay(prompt, outId, btnId) {
+  if(!DB.key()){toast('⚠️ Insira a API Key primeiro!');return;}
+  const btn=document.getElementById(btnId);
+  if(btn) btn.disabled=true;
+  document.getElementById(outId).innerHTML=loadHtml('✨ IA criando receita baseada no Guia Alimentar...');
+  try {
+    const raw=await callAPI([{role:'user',content:prompt}]);
+    const clean=raw.replace(/```json|```/g,'').trim();
+    const recipe=JSON.parse(clean);
+    DB.incTotal(); updateStats();
+    document.getElementById(outId).innerHTML=renderCard(recipe);
+  } catch(e) {
+    document.getElementById(outId).innerHTML=`<div class="load-card"><div class="load-msg">❌ ${e.message}</div></div>`;
+  }
+  if(btn) btn.disabled=false;
+}
+
+// ══════════════════════════════════════════════════════════
+// RECIPE CARD RENDERER
+// ══════════════════════════════════════════════════════════
+const novaColors={1:'var(--moss)',2:'var(--blue)',3:'var(--earth)',4:'var(--red)'};
+const novaLabels={1:'NOVA 1 — In natura 🌿',2:'NOVA 2 — Ing. culinários 🫙',3:'NOVA 3 — Processado 🥫',4:'NOVA 4 — Ultraprocessado 🚫'};
+const novaAlertClass={1:'good',2:'good',3:'warn',4:'bad'};
+const passosShort={1:'Prefira in natura',2:'Use sal e açúcar moderados',3:'Limite processados',4:'Evite ultraprocessados',5:'Regularidade e atenção',6:'Ambiente adequado',7:'Compre em feiras',8:'Cozinhe em casa',9:'Compartilhe',10:'Seja crítico'};
+
+function renderCard(r, fromSaved=false) {
+  const rid='r'+Date.now();
+  window[rid]=r;
+  const novaClass=novaAlertClass[r.novaScore]||'good';
+  const novaPillColor=novaColors[r.novaScore]||'var(--moss)';
+  const stars='⭐'.repeat(r.sustainability||3);
+  return `
+  <div class="recipe-card">
+    <div class="rh">
+      <div class="rh-emoji">${r.emoji||'🍽️'}</div>
+      <div class="rh-title">${r.title}</div>
+      <div class="rh-pills">
+        <div class="rh-pill">⏱️ ${r.time}min</div>
+        <div class="rh-pill">🍽️ ${r.servings} porções</div>
+        <div class="rh-pill">📊 ${r.difficulty}</div>
+        <div class="rh-pill" style="background:${novaPillColor}40">${novaLabels[r.novaScore]||'NOVA ?'}</div>
+      </div>
+    </div>
+    <div class="rb">
+      <div class="nova-alert ${novaClass}">
+        <span style="font-size:1.1rem">${novaClass==='good'?'✅':novaClass==='warn'?'⚠️':'❌'}</span>
+        <div>${r.novaAlert||''}</div>
+      </div>
+      ${r.guiaPasso ? `<div style="background:var(--moss-faint);border-radius:8px;padding:10px 12px;font-size:0.8rem;color:var(--moss);margin-bottom:14px">📖 <strong>Guia Alimentar — Passo ${r.guiaPasso}:</strong> ${passosShort[r.guiaPasso]||''}</div>` : ''}
+      <div class="rs">
+        <div class="rs-title">📊 Nutrição por porção</div>
+        <div class="nutr-grid">
+          <div class="nb"><div class="nv">${r.calories}</div><div class="nl">kcal</div></div>
+          <div class="nb"><div class="nv">${r.protein}g</div><div class="nl">Proteína</div></div>
+          <div class="nb"><div class="nv">${r.carbs}g</div><div class="nl">Carboidratos</div></div>
+          <div class="nb"><div class="nv">${r.fat}g</div><div class="nl">Gorduras</div></div>
+        </div>
+      </div>
+      <div class="rs">
+        <div class="rs-title">🌿 Ingredientes</div>
+        <ul class="ing-list">${(r.ingredients||[]).map(i=>`<li>${i}</li>`).join('')}</ul>
+      </div>
+      <div class="rs">
+        <div class="rs-title">👨‍🍳 Modo de Preparo</div>
+        <ol class="step-list">${(r.steps||[]).map(s=>`<li>${s}</li>`).join('')}</ol>
+      </div>
+      ${r.tip?`<div class="tip-box">💡 ${r.tip}</div>`:''}
+      ${r.regionalNote?`<div style="margin-top:10px;font-size:0.8rem;color:var(--text-mid);font-style:italic">🇧🇷 ${r.regionalNote}</div>`:''}
+      ${r.sustainability?`<div style="margin-top:10px;font-size:0.78rem;color:var(--text-light)">🌍 Sustentabilidade: ${stars}</div>`:''}
+    </div>
+    <div class="rc-actions">
+      ${!fromSaved?`<button class="btn-primary" style="flex:2" onclick="doSave('${rid}')">💾 Salvar</button>`:''}
+      <button class="btn-outline" style="flex:1" onclick="shareRecipe('${rid}')">📤</button>
+    </div>
+  </div>`;
+}
+
+function doSave(rid) { const r=window[rid]; if(!r)return; if(DB.saveRecipe(r)) toast('✅ Receita salva!'); }
+function shareRecipe(rid) {
+  const r=window[rid]; if(!r)return;
+  const txt=`🥗 ${r.title}\n⏱️ ${r.time}min | ${r.calories}kcal | ${novaLabels[r.novaScore]}\n\nNutriIA 2.0 — Guia Alimentar Brasileiro 🌿`;
+  if(navigator.share) navigator.share({title:r.title,text:txt});
+  else { navigator.clipboard?.writeText(txt); toast('📋 Copiado!'); }
+}
+
+// ══════════════════════════════════════════════════════════
+// PASSOS
+// ══════════════════════════════════════════════════════════
+function buildPassos() {
+  const g=document.getElementById('passosGrid');
+  g.innerHTML=PASSOS.map((p,i)=>`
+    <div class="passo-card" onclick="this.classList.toggle('open')">
+      <div class="passo-num">${i+1}</div>
+      <div class="passo-body">
+        <div class="passo-title">${p.title}</div>
+        <div class="passo-desc">${p.desc}</div>
+        <div class="passo-expand">${p.detail}</div>
+      </div>
+    </div>`).join('');
+}
+
+// ══════════════════════════════════════════════════════════
+// SAVED
+// ══════════════════════════════════════════════════════════
+function renderSaved() {
+  const q=(document.getElementById('searchInput')?.value||'').toLowerCase();
+  let list=DB.recipes();
+  if(q) list=list.filter(r=>r.title.toLowerCase().includes(q));
+  const el=document.getElementById('savedList');
+  const cnt=document.getElementById('savedCount');
+  if(cnt) cnt.textContent=`${DB.recipes().length} receitas`;
+  if(!list.length){
+    el.innerHTML=`<div class="empty"><div class="e-icon">📭</div><p>${q?'Nenhuma receita encontrada.':'Nenhuma receita salva.<br>Gere e salve uma para começar!'}</p></div>`;
+    return;
+  }
+  el.innerHTML=list.map(r=>{
+    const rid='sv'+r.id; window[rid]=r;
+    return `<div class="saved-card" onclick="openSaved('${rid}')">
+      <div class="saved-icon">${r.emoji||'🍽️'}</div>
+      <div class="saved-info">
+        <div class="saved-name">${r.title}</div>
+        <div class="saved-meta">${novaLabels[r.novaScore]||''} · ${r.time}min · ${r.calories}kcal · ${r.savedAt}</div>
+      </div>
+      <button class="del-btn" onclick="event.stopPropagation();delR(${r.id})">🗑️</button>
+    </div>`;
+  }).join('');
+}
+function openSaved(rid) { const r=window[rid]; if(!r)return; document.getElementById('recipeModalContent').innerHTML=renderCard(r,true); document.getElementById('recipeModal').classList.add('open'); }
+function delR(id) { DB.delRecipe(id); toast('🗑️ Removida'); renderSaved(); }
+
+// ══════════════════════════════════════════════════════════
+// NOVA FILTER
+// ══════════════════════════════════════════════════════════
+function filterByNova(n,el) {
+  el.classList.toggle('active');
+  // show NOVA info
+  const info=NOVA_INFO[n];
+  document.getElementById('novaModalContent').innerHTML=`
+    <h3 style="font-family:'Fraunces',serif;font-size:1.3rem;color:${info.color};margin-bottom:10px">${info.emoji} ${info.title}</h3>
+    <p style="font-size:0.85rem;line-height:1.6;color:var(--text-mid);margin-bottom:12px">${info.desc}</p>
+    <div style="background:var(--paper2);border-radius:10px;padding:12px;margin-bottom:12px;">
+      <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;color:var(--text-light);margin-bottom:6px">Exemplos</div>
+      <div style="font-size:0.85rem;color:var(--text)">${info.examples}</div>
+    </div>
+    <div style="background:${info.color}20;border-radius:10px;padding:12px;font-size:0.88rem;font-weight:700;color:${info.color}">${info.rec}</div>
+    <p style="font-size:0.75rem;color:var(--text-light);margin-top:12px;text-align:center">Fonte: Guia Alimentar para a População Brasileira — MS, 2ª ed., 2014</p>`;
+  document.getElementById('novaModal').classList.add('open');
+}
+
+function showNovaInfo() {
+  document.getElementById('novaModalContent').innerHTML=`
+    <h3 style="font-family:'Fraunces',serif;font-size:1.3rem;margin-bottom:12px">Classificação NOVA</h3>
+    <p style="font-size:0.83rem;color:var(--text-mid);line-height:1.6;margin-bottom:16px">Desenvolvida pelo Núcleo de Pesquisas Epidemiológicas em Nutrição e Saúde da USP e adotada pelo Guia Alimentar para a População Brasileira (Ministério da Saúde, 2014). Classifica os alimentos pelo <strong>grau e propósito de seu processamento industrial</strong>.</p>
+    ${[1,2,3,4].map(n=>{const i=NOVA_INFO[n];return`
+    <div style="background:#fff;border-radius:12px;padding:14px;margin-bottom:10px;border-left:5px solid ${i.color};box-shadow:var(--shadow-sm)">
+      <div style="font-weight:700;color:${i.color};margin-bottom:4px">${i.emoji} ${i.title}</div>
+      <div style="font-size:0.8rem;color:var(--text-mid);margin-bottom:6px">${i.desc}</div>
+      <div style="font-size:0.78rem;color:var(--text-light);margin-bottom:6px">Ex: ${i.examples.substring(0,80)}...</div>
+      <div style="font-size:0.8rem;font-weight:600;color:${i.color}">${i.rec}</div>
+    </div>`;}).join('')}
+    <p style="font-size:0.73rem;color:var(--text-light);text-align:center;margin-top:8px">Fonte: Guia Alimentar para a População Brasileira — Ministério da Saúde, 2ª ed., 2014</p>`;
+  document.getElementById('novaModal').classList.add('open');
+}
+
+// ══════════════════════════════════════════════════════════
+// PROFILE
+// ══════════════════════════════════════════════════════════
+function loadProfile() {
+  const p=DB.profile();
+  if(p.name){document.getElementById('nameIn').value=p.name;document.getElementById('profileName').textContent=p.name;}
+  if(p.goal){document.getElementById('goalIn').value=p.goal;}
+  if(p.rest){document.getElementById('restIn').value=p.rest;}
+  updateStats();
+}
+function saveProfile() {
+  const p={name:document.getElementById('nameIn').value,goal:document.getElementById('goalIn').value,rest:document.getElementById('restIn').value};
+  DB.s('profile',p);
+  if(p.name) document.getElementById('profileName').textContent=p.name;
+}
+function updateStats() {
+  const s=document.getElementById('stGen'),sv=document.getElementById('stSav'),sd=document.getElementById('stDays');
+  if(s) s.textContent=DB.total();
+  if(sv) sv.textContent=DB.recipes().length;
+  if(sd) sd.textContent=DB.g('days')||1;
+}
+function clearAll() {
+  if(!confirm('Apagar TODOS os dados?')) return;
+  ['recipes','profile','key','total','days','lastDay'].forEach(k=>localStorage.removeItem('nia2_'+k));
+  toast('🗑️ Dados apagados');
+  loadProfile();
+}
+
+// ══════════════════════════════════════════════════════════
+// HELPERS
+// ══════════════════════════════════════════════════════════
+function loadHtml(msg) { return `<div class="load-card"><div class="spinner"></div><div class="load-msg">${msg}</div></div>`; }
+function closeModal(e) { if(e.target.classList.contains('modal-overlay')) e.target.classList.remove('open'); }
+let tT; function toast(m) { const t=document.getElementById('toast'); t.textContent=m; t.classList.add('show'); clearTimeout(tT); tT=setTimeout(()=>t.classList.remove('show'),2800); }
+</script>
+</body>
+</html>
