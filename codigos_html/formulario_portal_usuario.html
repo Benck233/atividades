@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="">
+
+        <div>
+            <h2>Digite seus dados</h2>
+        </div>
+
+        <div>
+            <label for="nome">Digite seu nome</label>
+            <input type="text" name="nome:" placeholder="Digite seu nome">
+        </div>
+
+        <div>
+
+            <label for="email">Digite seu email</label>
+            <input type="email" name="email" placeholder="Digite seu email"></input>
+        </div>
+
+        <div>
+            <label for="senha">Digite sua senha</label>
+            <input type="password" name="senha" placeholder="Digite sua senha">
+        </div>
+
+        <div>
+            <label for="telefone">Digite seu telefone</label>
+            <input type="number" name="telefone" placeholder="Digite seu telefone">
+        </div>
+
+        <div>
+            <label for="nascimento">Coloque sua data de nascimento</label>
+            <input type="date" name="nascimento" placeholder="">
+        </div>
+
+        <div>
+            <label for="cor_favorita">Escolha sua cor favorita</label>
+            <input type="color" name="cor_favorita" placeholder="">
+        </div>
+
+
+    </form>
+
+    <form>
+        <div>
+            <h2>Datas e horários</h2>
+        </div>
+
+        <div>
+            <label for="data_local">Data e horario de cadastro</label> <br>
+            <input type="datetime-local" name="data_local" placeholder="">
+        </div>
+
+        <div>
+            <label for="horario_preferido">Digite seu horario preferido</label><br>
+            <input type="time" name="horario_preferido" placeholder="">
+        </div>
+
+        <div>
+            <label for="mes_preferencia">Seu mes de preferencia</label><br>
+            <input type="month" name="mes_preferencia" placeholder="Digite seu mes de preferencia">
+        </div>
+
+        <div>
+            <label for="semana_ano">A semana do ano</label><br>
+            <input type="week" name="semana_ano" placeholder="Digite a seman do ano">
+        </div>
+
+    </form>    
+
+    <form>
+        <div>
+            <h2>Informações numéricas</h2>
+
+        </div>
+
+        <div>
+            <label for="idade">Coloque sua idade</label>
+            <input type="number" name="idade" placeholder="">
+        </div>
+
+        <div>
+            <label for="nivel_satisfacao">Nível de satisfação</label>
+            <input type="range" name="nivel_satisfacao" placeholder="">
+        </div>
+
+        <div>
+            <h2>Upload de arquivos</h2>
+            <label for="foto_de_perfil">Foto de perfil</label><br>
+            <input type="file" name="foto_de_perfil" placeholder="">
+        </div>
+
+        <div>
+            <label for="">Sexo:</label>
+            <label for="">Masc.</label>
+            <input type="radio" id="Masc" name="MascFem" value="Masc">
+            <label for="">Fem.</label>
+            <input type="radio" id="Fem" name="MascFem" value="Fem">
+        </div>
+
+        <div>
+            <label for="esolha">Escolha sua cidade</label>
+             <select id="cidade" name="cidade">
+                <option value="">-- Cidade --</option>
+                <option value="sao_paulo">São Paulo</option>
+                <option value="rio_de_janeiro">Rio de janeiro</option>
+            </select>
+        </div>
+
+        <br><br>
+        <div>
+            <input type="submit" value="Enviar">
+            <input type="reset" value="Resetar">
+        </div>
+
+
+
+
+    </form>
+
+
+</body>
+</html>
