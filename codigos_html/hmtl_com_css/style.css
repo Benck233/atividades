@@ -1,0 +1,81 @@
+body{
+    background-color: hsl(0, 0%, 77%);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+li{
+    color:rgb(0, 0, 0)
+}
+
+h3{
+    color:rgb(3, 3, 3)
+}
+
+ul li{
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+}
+
+ul li{
+    font-size: 17px;
+    letter-spacing: 1px
+}
+
+ul h5{
+    color:rgb(48, 48, 48)
+
+
+    
+    /*selciona estritament o elemento de id titulo_principal.
+    para referciar id usamos "#" */
+
+}
+#titulo_principal{
+    color: darkgreen;
+    text-align: center;
+    border-bottom: 2px solid darkgreen;
+}
+
+h2{
+    color: aqua;
+}
+
+#Ingredientes{
+    color: aqua;
+    font-size: bold;
+}
+/*classes sao identificadas no css como "."*/
+.ingrediente_secreto{
+    color: rgb(255, 0, 0);
+    font-size: medium;
+    font-family: Georgia;
+}
+
+.aviso{
+    background-color:yellow ;
+    color: red;
+    padding: 10px;
+}
+
+#hello:hover {
+    opacity: 0.8;
+    color: green;
+}
+
+.botao_cozinha{
+
+  background-color: #4CAF50; /* Verde */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer; /* Faz aparecer a "mãozinha" do mouse */
+  transition: 0.3s; /* Deixa a mudança de cor suave */
+}
+
+/* O que acontece quando passa o mouse */
+.botao_cozinha:hover {
+  background-color: #45a049; /* Um verde um pouco mais escuro */
+  transform: scale(1.05);    /* Dá um leve zoom */
+}
+
+
