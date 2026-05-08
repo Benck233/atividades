@@ -1,0 +1,1 @@
+float(input("Quanto você ganh por hora: "))
