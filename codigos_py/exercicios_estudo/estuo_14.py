@@ -1,11 +1,9 @@
 peixe=float(input("Digite o peso do peixe: "))
 
+if peixe>50:
+    peixe_multa= (peixe - 50) *4
+    print(f"A multa sera de:{peixe_multa}")
 
-def peixe_multa(peixe):
-    multa=0
-    while peixe>50:
-        multa=+4
-    print(multa)
+else:
+    print(f"O peso do peixe é de: {peixe}")
 
-
-peixe_multa(peixe)
