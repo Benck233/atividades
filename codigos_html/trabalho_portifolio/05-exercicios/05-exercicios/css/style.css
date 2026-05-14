@@ -293,7 +293,17 @@ code {
   padding: 8px;
   font-family: 'Source Code Pro', monospace;
   font-size: 1rem;
+  width: 14ch;
 }
+
+.texto-rem{
+  font-size: 1.25rem;
+}
+
+.texto-em{
+  font-size: 1.25em;
+}
+
 
 /* ================================================
    EXERCÍCIO 4 — CORES
@@ -320,6 +330,15 @@ code {
   grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
   gap: 12px;
   align-items: start;
+}
+
+.bloco-named{
+  background-color: steelblue;
+  
+}
+
+.bloco-hex{
+  background-color: #e53e3e;
 }
 
 .bloco {
