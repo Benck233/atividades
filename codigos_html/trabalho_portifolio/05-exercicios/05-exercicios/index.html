@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercícios — Aula CSS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display&family=Source+Code+Pro&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@400;700 0,18..144,300..900;1,18..144,300..900&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+  <header class="cabecalho">
+    <h1>Exercícios Práticos — CSS</h1>
+    <p class="subtitulo">Pseudoelementos · Fontes · Medidas · Cores</p>
+  </header>
+
+  <main class="conteudo">
+
+    <p class="intro">
+      Abra o arquivo <code>css/style.css</code> desta pasta e complete os exercícios abaixo.
+      Cada seção indica exatamente o que deve ser feito. Não altere o HTML — apenas o CSS!
+    </p>
+
+    <!-- ==========================================
+         EXERCÍCIO 1 — PSEUDOELEMENTOS
+         ========================================== -->
+    <section class="card ex-1">
+      <div class="numero-ex">01</div>
+      <h2>Pseudoelementos</h2>
+      <p class="enunciado">
+        Estilize os elementos abaixo <strong>usando apenas CSS</strong>, sem modificar o HTML:
+      </p>
+
+      <ol class="lista-tarefas">
+        <li>Use <code>::before</code> para colocar o emoji <strong>📌</strong> antes de cada item da lista <code>.lista-exercicio</code>.</li>
+        <li>Use <code>::after</code> para adicionar o texto <em>"(novo!)"</em> com cor verde após o link <code>.link-novo</code>.</li>
+        <li>Use <code>::first-letter</code> para estilizar a primeira letra do parágrafo <code>.texto-capitular</code>: tamanho <code>3em</code>, cor roxa, flutuando à esquerda.</li>
+        <li>Use <code>::placeholder</code> para deixar o placeholder do input em cor laranja e itálico.</li>
+        <li>Use <code>::selection</code> para que ao selecionar o texto do parágrafo <code>.selecionar-me</code>, o fundo fique amarelo e a cor do texto fique preta.</li>
+      </ol>
+
+      <!-- HTML para estilizar -->
+      <div class="area-exercicio">
+
+        <ul class="lista-exercicio">
+          <li>Aprender CSS é essencial</li>
+          <li>Pseudoelementos são poderosos</li>
+          <li>Não precisa alterar o HTML</li>
+        </ul>
+
+        <p><a class="link-novo" href="https://www.leon.dev.br/slidev/css/#/1">Ver documentação</a></p>
+
+        <p class="texto-capitular">
+          Pseudoelementos permitem criar efeitos visuais avançados sem adicionar
+          elementos extras ao HTML. Eles são selecionados com dois dois-pontos (::)
+          e funcionam como se fossem elementos "fantasmas" dentro do DOM.
+        </p>
+
+        <input class="input-exercicio" type="text" placeholder="Digite algo aqui...">
+
+        <p class="selecionar-me">
+          Selecione este texto com o mouse e veja a magia acontecer! O CSS
+          consegue estilizar até o estado de seleção do usuário.
+        </p>
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         EXERCÍCIO 2 — FONTES
+         ========================================== -->
+    <section class="card ex-2">
+      <div class="numero-ex">02</div>
+      <h2>Fontes e Tipografia</h2>
+      <p class="enunciado">
+        Configure as fontes e propriedades tipográficas dos elementos abaixo:
+      </p>
+
+      <ol class="lista-tarefas">
+        <li>Importe a fonte <strong>Merriweather</strong> do Google Fonts (com pesos 400 e 700) adicionando a tag <code>&lt;link&gt;</code> no <code>&lt;head&gt;</code> deste HTML.</li>
+        <li>Aplique <code>font-family: 'Merriweather', serif</code> ao título <code>.titulo-fontes</code>.</li>
+        <li>Faça o parágrafo <code>.paragrafo-fontes</code> ter: <code>font-size: 1.1rem</code>, <code>line-height: 1.8</code> e <code>text-align: justify</code>.</li>
+        <li>No elemento <code>.destaque-fonte</code>, aplique <code>font-weight: 700</code>, <code>letter-spacing: 3px</code> e <code>text-transform: uppercase</code>.</li>
+        <li>Remova o sublinhado do link <code>.link-limpo</code> e mude sua cor para <code>#2b6cb0</code>. Ao passar o mouse (<code>:hover</code>), adicione sublinhado novamente.</li>
+      </ol>
+
+      <div class="area-exercicio">
+        <h3 class="titulo-fontes">Tipografia no Design Web</h3>
+
+        <p class="paragrafo-fontes">
+          A tipografia é um dos elementos mais importantes do design web. A escolha
+          da fonte certa pode melhorar dramaticamente a legibilidade e a experiência
+          do usuário. Fontes serifadas passam uma sensação de tradição e confiança,
+          enquanto fontes sem serifa tendem a parecer mais modernas e limpas.
+        </p>
+
+        <p class="destaque-fonte">Texto em destaque tipográfico</p>
+
+        <p><a class="link-limpo" href="#">Saiba mais sobre tipografia</a></p>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         EXERCÍCIO 3 — MEDIDAS
+         ========================================== -->
+    <section class="card ex-3">
+      <div class="numero-ex">03</div>
+      <h2>Medidas e Unidades</h2>
+      <p class="enunciado">
+        Aplique as unidades de medida corretas nos elementos abaixo:
+      </p>
+
+      <ol class="lista-tarefas">
+        <li>Faça a <code>.caixa-fixa</code> ter <code>width: 300px</code> e <code>height: 150px</code>, com fundo azul claro.</li>
+        <li>Faça a <code>.caixa-relativa</code> ter <code>width: 80%</code> (do pai) e <code>height: 100px</code>, com fundo verde claro. Redimensione a janela para ver a diferença.</li>
+        <li>Faça a <code>.caixa-viewport</code> ter <code>width: 60vw</code> e <code>height: 20vh</code>, com fundo roxo claro. Veja como se adapta à janela.</li>
+        <li>Aplique <code>font-size: 1.25rem</code> ao parágrafo <code>.texto-rem</code> e <code>font-size: 1.25em</code> ao parágrafo <code>.texto-em</code> (que está dentro de um pai com <code>font-size: 20px</code>). Observe a diferença.</li>
+        <li>Faça o <code>.input-ch</code> ter exatamente <code>width: 14ch</code> (largura de 14 caracteres "0").</li>
+      </ol>
+
+      <div class="area-exercicio">
+
+        <div class="caixa-fixa">
+          <p>Caixa fixa (px)</p>
+        </div>
+
+        <div class="caixa-relativa">
+          <p>Caixa relativa (%)</p>
+        </div>
+
+        <div class="caixa-viewport">
+          <p>Caixa da viewport (vw/vh)</p>
+        </div>
+
+        <div class="container-rem-em">
+          <p class="texto-rem">Texto com rem (relativo à raiz)</p>
+          <div class="pai-em-20">
+            <p class="texto-em">Texto com em (relativo ao pai — 20px × 1.25 = 25px)</p>
+          </div>
+        </div>
+
+        <div>
+          <label>CEP:</label><br>
+          <input type="text" class="input-ch" placeholder="00000000" maxlength="8">
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         EXERCÍCIO 4 — CORES
+         ========================================== -->
+    <section class="card ex-4">
+      <div class="numero-ex">04</div>
+      <h2>Cores</h2>
+      <p class="enunciado">
+        Aplique cores usando os diferentes formatos aprendidos:
+      </p>
+
+      <ol class="lista-tarefas">
+        <li>Pinte o <code>.bloco-named</code> com a cor nomeada <code>steelblue</code> (texto branco).</li>
+        <li>Pinte o <code>.bloco-hex</code> com a cor <code>#e53e3e</code> (texto branco).</li>
+        <li>Pinte o <code>.bloco-rgb</code> com <code>rgb(56, 161, 105)</code> (texto branco).</li>
+        <li>Pinte o <code>.bloco-rgba</code> com <code>rgba(128, 90, 213, 0.5)</code> sobre um fundo listrado (já estilizado). O bloco deve ser semi-transparente.</li>
+        <li>Pinte o <code>.bloco-hsl</code> com <code>hsl(30, 90%, 50%)</code> (texto branco).</li>
+        <li>Defina variáveis CSS no <code>:root</code> para <code>--minha-cor-primaria</code> e <code>--minha-cor-fundo</code> e use-as no <code>.bloco-variavel</code>.</li>
+      </ol>
+
+      <div class="area-exercicio">
+
+        <div class="grade-blocos">
+          <div class="bloco bloco-named">Named</div>
+          <div class="bloco bloco-hex">HEX</div>
+          <div class="bloco bloco-rgb">RGB</div>
+          <div class="bloco-listrado">
+            <div class="bloco bloco-rgba">RGBA</div>
+          </div>
+          <div class="bloco bloco-hsl">HSL</div>
+          <div class="bloco bloco-variavel">var()</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         DESAFIO EXTRA
+         ========================================== -->
+    <section class="card desafio">
+      <div class="numero-ex">★</div>
+      <h2>Desafio Extra — Cartão de Perfil</h2>
+      <p class="enunciado">
+        Usando <strong>tudo que foi aprendido</strong>, estilize o cartão de perfil abaixo com pelo menos:
+      </p>
+
+      <ol class="lista-tarefas">
+        <li>Uma fonte do Google Fonts para o nome.</li>
+        <li>A foto com borda circular (use <code>border-radius: 50%</code>) e uma borda colorida usando <code>border</code> com cor em HSL.</li>
+        <li>O nome em tamanho <code>1.8rem</code> usando a fonte do Google Fonts.</li>
+        <li>Altere a foto do avatar.</li>
+        <li>A profissão em <code>font-style: italic</code> e cor usando HEX.</li>
+        <li>As tags de habilidades com um <code>::before</code> exibindo <code>"# "</code> antes do texto.</li>
+        <li>O botão "Contato" com cor de fundo em <code>rgba()</code> e cor do texto em branco. Ao passar o mouse, a opacidade muda usando <code>:hover</code>.</li>
+        <li>O cartão inteiro com largura de <code>320px</code> fixo e sombra <code>box-shadow</code>.</li>
+      </ol>
+
+      <div class="area-exercicio">
+        <div class="cartao-perfil">
+          <img class="foto-perfil" src="assets/avatar.png" alt="Foto de perfil"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <div class="foto-placeholder">👤</div>
+          <h3 class="nome-perfil">Ana Beatriz Silva</h3>
+          <p class="profissao">Desenvolvedora Web</p>
+          <div class="habilidades">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">JavaScript</span>
+          </div>
+          <button class="btn-contato">Contato</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="rodape">
+    <p>Aula 02 — Desenvolvimento Web &bull; Ciência da Computação</p>
+  </footer>
+
+</body>
+</html>

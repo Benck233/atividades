@@ -1,0 +1,430 @@
+/* =============================================
+   EXERCÍCIOS CSS — FOLHA DE ESTILOS BASE
+   Apenas os estilos estruturais estão prontos.
+   Os alunos devem completar os estilos marcados
+   com "TODO:" nos comentários.
+   ============================================= */
+
+/* ---- Reset e base ---- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: #f0f4f8;
+  color: #2d3748;
+  line-height: 1.6;
+}
+
+/* ---- Cabeçalho ---- */
+.cabecalho {
+  background: linear-gradient(135deg, #1a202c, #4a5568);
+  color: white;
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.cabecalho h1 {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+}
+
+.subtitulo {
+  opacity: 0.75;
+  font-size: 1rem;
+}
+
+/* ---- Layout ---- */
+.conteudo {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.intro {
+  background: #ebf8ff;
+  border-left: 4px solid #3182ce;
+  padding: 14px 18px;
+  border-radius: 6px;
+  color: #2b6cb0;
+  font-size: 0.95rem;
+}
+
+/* ---- Card ---- */
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+  position: relative;
+}
+
+.card h2 {
+  font-size: 1.4rem;
+  color: #2d3748;
+  margin-bottom: 10px;
+  margin-left: 50px;
+}
+
+.numero-ex {
+  position: absolute;
+  top: 28px;
+  left: 24px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #2d3748;
+  color: white;
+  font-weight: bold;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.desafio .numero-ex { background: #d69e2e; }
+.ex-1 .numero-ex { background: #e53e3e; }
+.ex-2 .numero-ex { background: #805ad5; }
+.ex-3 .numero-ex { background: #3182ce; }
+.ex-4 .numero-ex { background: #38a169; }
+
+.enunciado {
+  color: #4a5568;
+  margin-bottom: 14px;
+  margin-left: 50px;
+}
+
+code {
+  background: #edf2f7;
+  color: #c05621;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.88em;
+}
+
+/* ---- Lista de tarefas ---- */
+.lista-tarefas {
+  margin: 0 0 20px 50px;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #4a5568;
+  font-size: 0.95rem;
+}
+
+.lista-tarefas li::marker {
+  color: #718096;
+  font-weight: bold;
+}
+
+/* ---- Área de exercício ---- */
+.area-exercicio {
+  background: #f7fafc;
+  border: 2px dashed #cbd5e0;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ================================================
+   EXERCÍCIO 1 — PSEUDOELEMENTOS
+   Escreva os estilos abaixo!
+   ================================================ */
+
+/* TODO: .lista-exercicio li::before  */
+
+/* TODO: .link-novo::after  */
+
+/* TODO: .texto-capitular::first-letter  */
+
+/* TODO: .input-exercicio::placeholder  */
+
+/* TODO: .selecionar-me::selection  */
+
+/* Estilos base (não modificar) */
+.lista-exercicio {
+  content: "📌";
+  list-style: none;
+  padding: 0;
+}
+
+.lista-exercicio li::before {
+  content: "📌";
+  padding: 4px 0;
+}
+
+.link-novo::after {
+  content: "(novo!)";
+  color: #00d80b;
+  font-weight: bold;
+}
+
+.input-exercicio {
+  width: 100%;
+  max-width: 360px;
+  border: 2px solid orange;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 1rem;
+  outline: none;
+  font-style: italic;
+}
+
+.texto-capitular::first-letter {
+  font-size: 3em;
+  color: purple;
+  float: left;
+}
+
+.selecionar-me::selection{
+  background-color: yellow;
+  color:black
+
+}
+
+/* ================================================
+   EXERCÍCIO 2 — FONTES
+   Escreva os estilos abaixo!
+   ================================================ */
+
+/* TODO: .titulo-fontes  */
+
+/* TODO: .paragrafo-fontes  */
+
+/* TODO: .destaque-fonte  */
+
+/* TODO: .link-limpo e .link-limpo:hover  */
+
+/* Estilos base (não modificar) */
+.titulo-fontes {
+  font-family: 'Merriweather', serif;
+  margin-bottom: 10px;
+}
+
+.paragrafo-fontes {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  text-align: justify;
+  margin-bottom: 10px;
+}
+
+.destaque-fonte {
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.link-limpo{
+  color:#2b6cb0;
+  text-decoration: none;
+  
+}
+
+.link-limpo:hover{
+  text-decoration: underline;
+}
+
+/* ================================================
+   EXERCÍCIO 3 — MEDIDAS
+   Escreva os estilos abaixo!
+   ================================================ */
+
+/* TODO: .caixa-fixa  */
+
+/* TODO: .caixa-relativa  */
+
+/* TODO: .caixa-viewport  */
+
+/* TODO: .texto-rem  */
+
+/* TODO: .texto-em  */
+
+/* TODO: .input-ch  */
+
+/* Estilos base (não modificar) */
+.caixa-fixa{
+  width: 300px;
+  height: 150px;
+  background-color: lightblue;
+}
+.caixa-relativa{
+  width: 80%; height: 100px;
+  background-color: lightgreen;
+}
+.caixa-viewport {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-weight: bold;
+  color: #2d3748;
+  font-size: 0.9rem;
+}
+
+.pai-em-20 {
+  font-size: 20px;
+  background: #fef3c7;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px dashed #d69e2e;
+}
+
+.input-ch {
+  border: 2px solid #4a5568;
+  border-radius: 6px;
+  padding: 8px;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 1rem;
+}
+
+/* ================================================
+   EXERCÍCIO 4 — CORES
+   Escreva os estilos abaixo!
+   ================================================ */
+
+/* TODO: :root com --minha-cor-primaria e --minha-cor-fundo  */
+
+/* TODO: .bloco-named  */
+
+/* TODO: .bloco-hex  */
+
+/* TODO: .bloco-rgb  */
+
+/* TODO: .bloco-rgba  */
+
+/* TODO: .bloco-hsl  */
+
+/* TODO: .bloco-variavel  */
+
+/* Estilos base (não modificar) */
+.grade-blocos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 12px;
+  align-items: start;
+}
+
+.bloco {
+  height: 80px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: white;
+}
+
+.bloco-listrado {
+  background-image: repeating-linear-gradient(
+    45deg,
+    #cbd5e0 0px,
+    #cbd5e0 10px,
+    #e2e8f0 10px,
+    #e2e8f0 20px
+  );
+  border-radius: 8px;
+  display: flex;
+  align-items: stretch;
+}
+
+.bloco-listrado .bloco {
+  width: 100%;
+}
+
+/* ================================================
+   DESAFIO — CARTÃO DE PERFIL
+   Escreva os estilos abaixo!
+   ================================================ */
+
+/* TODO: .cartao-perfil (largura, sombra, padding, centralizado) */
+
+/* TODO: .foto-perfil (border-radius 50%, borda HSL) */
+
+/* TODO: .nome-perfil (Google Fonts, 1.8rem) */
+
+/* TODO: .profissao (italic, cor HEX) */
+
+/* TODO: .tag::before (conteúdo "# ") */
+
+/* TODO: .btn-contato (rgba, hover) */
+
+/* Estilos base do cartão (não modificar) */
+.cartao-perfil {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+}
+
+.foto-placeholder {
+  display: none;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  font-size: 3rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.foto-perfil {
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+}
+
+.habilidades {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.tag {
+  background: #edf2f7;
+  color: #4a5568;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.btn-contato {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 28px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  transition: opacity 0.2s;
+}
+
+/* ---- Rodapé ---- */
+.rodape {
+  text-align: center;
+  padding: 24px;
+  background: #1a202c;
+  color: rgba(255,255,255,0.5);
+  font-size: 0.9rem;
+  margin-top: 20px;
+}
