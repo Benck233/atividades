@@ -274,6 +274,9 @@ code {
   font-weight: bold;
   color: #2d3748;
   font-size: 0.9rem;
+  width: 60vw;
+  height: 20vh;
+  background-color: #9D00FF;
 }
 
 .pai-em-20 {
