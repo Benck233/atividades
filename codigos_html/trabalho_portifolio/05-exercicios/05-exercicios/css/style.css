@@ -6,6 +6,9 @@
    ============================================= */
 
 /* ---- Reset e base ---- */
+@import url('https://googleapis.com');
+
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -341,6 +344,18 @@ code {
   background-color: #e53e3e;
 }
 
+.bloco-rgb{
+  background-color: rgb(128, 90, 213, 0.5);
+}
+
+.bloco-rgba{
+  background-color: rgba(128, 90, 213, 0.5);
+}
+
+.bloco-hsl{
+  background-color: hsl(30, 90%, 50%);
+}
+
 .bloco {
   height: 80px;
   border-radius: 8px;
@@ -369,6 +384,17 @@ code {
   width: 100%;
 }
 
+
+.bloco-variavel{
+  color: var(--minha-cor-primaria);
+  background-color: var(--minha-cor-fundo);
+}
+
+:root {
+  --minha-cor-primaria: #FFFFFF;
+  --minha-cor-fundo:#000000;
+}
+
 /* ================================================
    DESAFIO — CARTÃO DE PERFIL
    Escreva os estilos abaixo!
@@ -395,7 +421,10 @@ code {
   background: white;
   border-radius: 16px;
   padding: 30px;
+  width: 320px;
+  box-shadow: wheat;
 }
+
 
 .foto-placeholder {
   display: none;
@@ -408,20 +437,36 @@ code {
   justify-content: center;
 }
 
+.profissao{
+  font-style: italic;
+  color: #2b6cb0;
+}
+
 .foto-perfil {
   width: 96px;
   height: 96px;
   object-fit: cover;
+  border-radius: 50%;
+  border-color: #c05621;
 }
 
-.habilidades {
-  display: flex;
+.nome-perfil{
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  height: 1.8rem;
+}
+
+
+.habilidades{
   gap: 8px;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-.tag {
+.tag::before {
+  content: "# ";
   background: #edf2f7;
   color: #4a5568;
   padding: 4px 10px;
@@ -431,6 +476,8 @@ code {
 }
 
 .btn-contato {
+  background-color: rgba(0, 0, 255, 0.6);
+  color: white;
   border: none;
   border-radius: 8px;
   padding: 10px 28px;
@@ -439,6 +486,10 @@ code {
   font-family: 'Roboto', sans-serif;
   font-weight: bold;
   transition: opacity 0.2s;
+}
+
+.btn-contato:hover{
+  opacity: 0.2;
 }
 
 /* ---- Rodapé ---- */
