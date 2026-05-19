@@ -19,3 +19,9 @@ for soma in range(1,5):
     contador+=soma
 
 print(f"o valor final é {contador}")
+
+produtos=["Arroz", "Feijão", "Sabão", "Massa", "Azeite"]
+
+for tamanho in produtos:
+    if len(tamanho) == 5:
+        print(f"{tamanho}")
