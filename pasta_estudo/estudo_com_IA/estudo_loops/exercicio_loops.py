@@ -80,3 +80,16 @@ for preco in precos:
     indice_atual += 1
 
     """
+
+precos={"caneta": 2.50, "caderno": 15.90, "borracha": 1.20, "mochila": 89.90}
+
+produto_mais_caro=""
+preco_mais_caro=0
+
+for item,preco in precos.items():
+    if preco > preco_mais_caro:
+        preco_mais_caro= preco
+        produto_mais_caro= item
+    
+    print(preco_mais_caro)
+    print(produto_mais_caro)
