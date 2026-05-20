@@ -35,13 +35,15 @@ print(resultado)
 
 precos=[25.0, 80.0, 12.0, 45.0, 60.0, 8.0]
 soma=0
-n_termos=0
+#n_termos=0
 
 for maior in precos:
     soma+=maior
-    n_termos+=1
+#   n_termos+=1
 
-media=soma/n_termos
+media=soma/len(precos)
+
+#media=soma/n_termos
 media_final=0
 
 for mediana in precos:
