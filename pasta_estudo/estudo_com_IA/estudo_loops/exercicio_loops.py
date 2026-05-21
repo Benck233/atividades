@@ -106,3 +106,10 @@ for item in compras:
         ocorencias[item]=1
     else:
         ocorencias[item]+=1
+
+
+somatorio=0
+
+for soma in ocorencias.values:
+    
+
