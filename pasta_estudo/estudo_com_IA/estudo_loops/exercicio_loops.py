@@ -81,7 +81,7 @@ for preco in precos:
 
     """
 
-precos={"caneta": 2.50, "caderno": 15.90, "borracha": 1.20, "mochila": 89.90}
+precos={"caneta": 2.50, "caderno": 15.90, "borracha": 1.20, "mochila": 89.90, "livro":89.90}
 
 produto_mais_caro=""
 preco_mais_caro=0
@@ -94,4 +94,15 @@ for item,preco in precos.items():
     print(preco_mais_caro)
     print(produto_mais_caro)
 
-    
+print(f"O produto mais caro é {produto_mais_caro} e o preço mais caro é {preco_mais_caro}")
+
+
+compras=["arroz","feijão","arroz","leite","feijao","arroz"]
+
+ocorencias={}
+
+for item in compras:
+    if item not in ocorencias:
+        ocorencias[item]=1
+    else:
+        ocorencias[item]+=1
