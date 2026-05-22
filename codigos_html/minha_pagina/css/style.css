@@ -14,7 +14,7 @@
 
 .caixa{
     background-color: wheat;
-    color: white;             /* Letras brancas */
+    color: black;             /* Letras brancas */
     padding: 20px;            /* Espaço interno para o texto não ficar colado na borda */
     border-radius: 8px;       /* Deixa as bordinhas da caixa arredondadas */
     text-align: center;
