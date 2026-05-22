@@ -97,7 +97,7 @@ for item,preco in precos.items():
 print(f"O produto mais caro é {produto_mais_caro} e o preço mais caro é {preco_mais_caro}")
 
 
-compras=["arroz","feijão","arroz","leite","feijao","arroz"]
+compras=["arroz","feijão","arroz","leite","feijão","arroz","leite","leite","leite"]
 
 ocorencias={}
 
@@ -109,7 +109,18 @@ for item in compras:
 
 
 somatorio=0
+for soma in ocorencias.values():
+    somatorio=soma+somatorio
 
-for soma in ocorencias.values:
-    
+media_2=somatorio/len(ocorencias)
 
+print(media_2)
+
+media_rela={}
+
+for  product,valor in ocorencias.items():
+    if valor > media_2:
+        media_rela[product]=valor
+
+
+print(media_rela)
