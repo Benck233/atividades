@@ -1,0 +1,17 @@
+.conteudo-principal{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container-serviço{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.caixa{
+    background-color: wheat;
+}
