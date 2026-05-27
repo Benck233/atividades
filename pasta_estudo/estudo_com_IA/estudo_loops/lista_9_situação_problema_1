@@ -47,7 +47,17 @@ dicionari_lista_dias_2=dict(zip(dias[7:], temperaturas[7:]))
 todos_os_valores = list(dicionari_lista_dias.items()) + list(dicionari_lista_dias_2.items())
 
 maior_temperatura={}
-#for 
+
+
+
+for dia, temp in todos_os_valores:
+    if temp not in maior_temperatura:
+        maior_temperatura[dia]=temp
+   
+    for temp in maior_temperatura.values():
+    
+        if temp > maior_temperatura:
+            maior_temperatura = temp
 
 
 
