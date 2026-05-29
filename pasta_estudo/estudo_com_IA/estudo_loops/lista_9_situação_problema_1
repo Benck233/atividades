@@ -46,20 +46,37 @@ dicionari_lista_dias_2=dict(zip(dias[7:], temperaturas[7:]))
 
 todos_os_valores = list(dicionari_lista_dias.items()) + list(dicionari_lista_dias_2.items())
 
-maior_temperatura={}
-
-
+maior_temperatura=0.0
+maior_dia=None
+menor_temperatura=100
+menor_dia=None
 
 for dia, temp in todos_os_valores:
-    if temp not in maior_temperatura:
-        maior_temperatura[dia]=temp
-   
-    for temp in maior_temperatura.values():
-    
-        if temp > maior_temperatura:
-            maior_temperatura = temp
+    if temp < menor_temperatura:
+        menor_temperatura=temp
+        menor_dia=dia
+
+for dia, temp in todos_os_valores:
+    if temp > maior_temperatura:
+        maior_temperatura=temp
+        maior_dia=dia
+
+
+print(f"{maior_dia} {maior_temperatura} ")
+print(f"{menor_dia} {menor_temperatura} ")
 
 
 
+media=sum(temperaturas)/len(temperaturas)
 
-print(todos_os_valores)
+print(media)
+media_final=[]
+
+
+i=0 
+semana=i
+
+for dia,  temp in todos_os_valores:
+    i=i+1
+    if temp > media:
+      media_final.append({"dia":dia, "semana":i, "temperatura":temp})
