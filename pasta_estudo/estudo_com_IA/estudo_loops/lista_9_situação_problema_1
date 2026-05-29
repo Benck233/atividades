@@ -72,11 +72,19 @@ media=sum(temperaturas)/len(temperaturas)
 print(media)
 media_final=[]
 
-
+i_primeira=1
+i_segunda=2
 i=0 
-semana=i
+
 
 for dia,  temp in todos_os_valores:
     i=i+1
     if temp > media:
-      media_final.append({"dia":dia, "semana":i, "temperatura":temp})
+            if i < 7:
+                media_final.append({"dia":dia, "semana":i_primeira, "temperatura":temp})
+               # print(media_final[:-1], media_final[:-1], media_final[:-1])
+
+
+            if i >7:
+                media_final.append({"dia":dia, "semana":i_segunda, "temperatura":temp})
+        
