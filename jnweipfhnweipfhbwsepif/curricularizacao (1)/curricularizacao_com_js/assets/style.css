@@ -57,3 +57,10 @@ body{
     color: grey;
     text-decoration:none;
 }
+
+
+.projeto{
+    padding: 10px 10px 10px 10px;
+    background-color: black;
+    color: white;
+}
