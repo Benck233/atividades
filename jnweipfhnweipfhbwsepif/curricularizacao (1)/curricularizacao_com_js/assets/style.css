@@ -1,3 +1,33 @@
 body{
     background-color: blueviolet;
 }
+
+.container-principal{
+    max-width: 1200px;
+    width: 100%;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+    flex: 1;
+}
+
+
+.grade-conteudo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem; 
+    margin-top: 1.5rem;
+}
+
+.header{
+    background-color: wheat; 
+    padding: 2rem 1.5rem 0 1.5rem;
+}
+
+.controles{
+    flex: 1;
+}
+
+.cartilha_conter{
+    margin-left: 30%;
+    
+}
