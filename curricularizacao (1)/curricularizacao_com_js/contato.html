@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato - Segurança da Informação</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <h1>Cartilha de Segurança da Informação</h1>
+        <p>Conscientização e boas práticas no ambiente digital</p>
+        <div class="controles">
+            <button id="btn-theme" title="Alternar Tema"><span class="material-icons">dark_mode</span></button>
+            <button id="btn-acessibilidade" title="Alterar Tamanho da Fonte"><span class="material-icons">accessibility</span></button>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="conteudo1.html">Engenharia Social</a></li>
+            <li><a href="conteudo2.html">Vulnerabilidades</a></li>
+            <li><a href="seguranca.html">Gerador de Senhas</a></li>
+            <li><a href="sobre.html">Sobre o Grupo</a></li>
+            <li><a href="contato.html">Contato</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section>
+            <h2>Fale Conosco</h2>
+            <p>Dúvidas sobre nossas cartilhas ou sugestões para o site? Envie-nos uma mensagem!</p>
+
+            <form id="form-contato" action="#" method="POST">
+                <div class="campo-form">
+                    <label for="nome">Nome Completo:</label>
+                    <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required>
+                </div>
+
+                <div class="campo-form">
+                    <label for="email">E-mail para contato:</label>
+                    <input type="email" id="email" name="email" placeholder="exemplo@email.com" required>
+                </div>
+
+                <div class="campo-form">
+                    <label for="mensagem">Sua Mensagem:</label>
+                    <textarea id="mensagem" name="mensagem" rows="5" placeholder="Escreva sua mensagem aqui..." required></textarea>
+                </div>
+
+                <button type="submit" id="btn-enviar">Enviar Mensagem</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 - Trabalho de Web Lab - Ciência da Computação (Primeiro Semestre)</p>
+    </footer>
+
+
+<script src="js/theme.js"></script>
+<script src="js/acessibilidade.js"></script>
+<script src="js/contato.js"></script>
+</body>
+</html>
