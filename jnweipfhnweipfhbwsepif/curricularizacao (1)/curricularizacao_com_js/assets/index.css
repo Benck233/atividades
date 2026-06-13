@@ -1,7 +1,7 @@
 body{
-    background-color: whitesmoke;
+    background-color: #F8FAFC;
     margin: 5px;
-
+    font-family: 'Poppins', sans-serif;
 }
 
 .container-principal{
@@ -9,7 +9,7 @@ body{
     width: 100%;
     margin: 2rem auto;
     padding: 0 1.5rem;
-    flex: 1;
+    box-sizing: border-box;
 }
 
 
@@ -32,17 +32,33 @@ body{
     position: sticky;
     top: 0;
     z-index: 1000;
-    background-color: #333333;
+    background-color: #FFFFFF;
     border-radius: 10px;
+    border: 1px solid#E2E8F0;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     
+}
+header h1{
+    color: #0284C7; 
+    margin-bottom: 0.5rem;
+}
+
+.header p{
+    color: #334155;
+    max-width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
 }
 
 
 header.h1 .p{
-    color: black;
+    color: blue ;
     max-width: 10px;    
     
 }
+
 
 .controles{
     float: right;
@@ -78,7 +94,7 @@ header.h1 .p{
 
 .projeto{
     padding: 10px 10px 10px 10px;
-    background-color: black;
+    background-color: FFFFFF;
     color: white;
 }
 
@@ -131,8 +147,8 @@ header.h1 .p{
 
 
 .cartao-conteudo {
-    background-color: black; 
-    color: white;
+    background-color: FFFFFF; 
+    color: black;
     padding: 2rem;
     border-radius: 12px;
     flex: 1; 
@@ -161,3 +177,4 @@ header.h1 .p{
     font-size: 0.9rem;
     margin-top: 3rem;
 }
+
