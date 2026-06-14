@@ -4,67 +4,76 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sobre o Grupo - Segurança da Informação</title>
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="../curricularizacao_com_js/assets/sobrenos.css">
 </head>
 <body>
 
-    <header>
-        <h1>Cartilha de Segurança da Informação</h1>
-        <p>Conscientização e boas práticas no ambiente digital</p>
+    <header class="header">
+        <nav class="grade-conteudo">
+            <ul>
+                <li><a class="engenharia" href="index.html">Home</a></li>
+                <li><a class="engenharia" href="conteudo1.html">Engenharia Social</a></li>
+                <li><a class="engenharia" href="conteudo2.html">Vulnerabilidades</a></li>
+                <li><a class="engenharia" href="seguranca.html">Gerador de Senhas</a></li>
+                <li><a class="engenharia" href="sobrenos.html">Sobre o Grupo</a></li>
+                <li><a class="engenharia" href="contato.html">Contato</a></li>
+            </ul>
+        </nav>
+        <div>
+            <h1>Cartilha de Segurança da Informação</h1>
+            <p>Conscientização e boas práticas no ambiente digital</p>
+        </div>
         <div class="controles">
             <button id="btn-theme" title="Alternar Tema"><span class="material-icons">dark_mode</span></button>
             <button id="btn-acessibilidade" title="Alterar Tamanho da Fonte"><span class="material-icons">accessibility</span></button>
         </div>
     </header>
 
-    <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="conteudo1.html">Engenharia Social</a></li>
-            <li><a href="conteudo2.html">Vulnerabilidades</a></li>
-            <li><a href="seguranca.html">Gerador de Senhas</a></li>
-            <li><a href="sobre.html">Sobre o Grupo</a></li>
-            <li><a href="contato.html">Contato</a></li>
-        </ul>
-    </nav>
 
-    <main>
-        <section>
+    <main class="container-principal">
+        <section class="cartao-projeto">
             <h2>Desenvolvedores do Projeto</h2>
             <p>Conheça a equipe de estudantes de Ciência da Computação responsáveis por estruturarem este portal e as cartilhas digitais.</p>
-            
+        </section>
+
+        <section>
             <div class="equipe">
                 <article class="membro-cartao">
-                    <img src="assets/bernardo.jpeg" alt="Foto do(a) Aluno(a) 1">
-                    <h3>Bernardo Trento Gabriel</h3>
-                    <p>Estudante do primeiro semestre. Responsável pela pesquisa de conteúdo e desenvolvimento do HTML.</p>
+                    <img src="assets/bernardo.jpeg" alt="Foto de Bernardo">
+                    <div class="membro-info">
+                        <h3>Bernardo Trento Gabriel</h3>
+                        <p>Estudante do primeiro semestre. Responsável pela pesquisa de conteúdo e desenvolvimento do HTML.</p>
+                    </div>
                 </article>
 
                 <article class="membro-cartao">
-                    <img src="assets/jose.jpeg" alt="Foto do(a) Aluno(a) 2">
-                    <h3>José Henrique Alves</h3>
-                    <p>Estudante do primeiro semestre. Responsável por todo JavaScript do site.</p>
+                    <img src="assets/jose.jpeg" alt="Foto de José">
+                    <div class="membro-info">
+                        <h3>José Henrique Alves</h3>
+                        <p>Estudante do primeiro semestre. Responsável por todo JavaScript do site.</p>
+                    </div>
                 </article>
 
                 <article class="membro-cartao">
-                    <img src="assets/foto3.jpg" alt="Foto do(a) Aluno(a) 3">
-                    <h3>Nome do Aluno 3</h3>
-                    <p>Estudante do primeiro semestre. Trabalhou na parte estética aprofundando o CSS.</p>
+                    <img src="assets/foto3.jpg" alt="Foto do Integrante 3">
+                    <div class="membro-info">
+                        <h3>Nome do Aluno 3</h3>
+                        <p>Estudante do primeiro semestre. Trabalhou na parte estética aprofundando o CSS.</p>
+                    </div>
                 </article>
             </div>
         </section>
     </main>
 
-    <footer>
+    <footer class="footer">
         <p>&copy; 2026 - Trabalho de Web Lab - Ciência da Computação (Primeiro Semestre)</p>
     </footer>
 
-
-<script src="js/theme.js"></script>
-<script src="js/acessibilidade.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/acessibilidade.js"></script>
 </body>
 </html>
