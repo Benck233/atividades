@@ -1,11 +1,53 @@
-.body{
-    background-color: blue;
+body {
+    background-color: #F8FAFC;
+    margin: 5px;
+    font-family: 'Poppins', sans-serif; 
+    color: #334155;
 }
 
-#titulo-malware{
+.container-principal {
+    max-width: 1200px;
+    width: 100%;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+}
 
-    color: #4a6fff;
-    font-size: 2.5rem;
-    margin-bottom: 30px;
-    margin-top: 50px;
+.header{
+    padding: 2rem 1.5rem 3.5rem 1.5rem;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    border: 1px solid#E2E8F0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    
+}
+
+.header h1 {
+    color: #0284C7; 
+    margin: 0 0 0.3rem 0;
+    font-size: 1.8rem;
+}
+
+.header p {
+    color: #64748B;             
+    max-width: 550px;
+    margin-left: auto;          
+    margin-right: auto;         
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 1.5;
+    font-size: 1rem;
+    float: left;
+}
+
+.controles {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    float: right;
 }
