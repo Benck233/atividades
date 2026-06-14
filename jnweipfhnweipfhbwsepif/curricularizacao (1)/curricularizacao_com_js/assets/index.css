@@ -61,6 +61,21 @@ header.h1 .p{
     float: right;
 }
 
+.controles button{
+    background-color: #0284C7;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    transition: background-color 0.2s;
+}
+
+.controles button:hover {
+    background-color: #0369a1;
+}
 
 .engenharia{
     color: #334155;
@@ -71,10 +86,6 @@ header.h1 .p{
     
 }
 
-.engenharia:hover{
-    color: grey;
-    text-decoration:none;
-}
 
 
 .projeto{
@@ -179,5 +190,9 @@ header.h1 .p{
     font-family: 'Poppins', sans-serif;
     font-size: 0.9rem;
     margin-top: 3rem;
+}
+
+.engenharia:hover {
+    color: #0284C7; /* Fica azul ao passar o mouse */
 }
 
