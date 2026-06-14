@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sobre o Grupo - Segurança da Informação</title>
+    <title>Contato - Segurança da Informação</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="css/sobrenos.css">
+    <link rel="stylesheet" href="css/contato.css">
 </head>
 <body>
 
@@ -36,36 +36,27 @@
 
     <main class="container-principal">
         <section class="cartao-projeto">
-            <h2>Desenvolvedores do Projeto</h2>
-            <p>Conheça a equipe de estudantes de Ciência da Computação responsáveis por estruturarem este portal e as cartilhas digitais.</p>
-        </section>
+            <h2>Fale Conosco</h2>
+            <p>Dúvidas sobre nossas cartilhas ou sugestões para o site? Envie-nos uma mensagem!</p>
 
-        <section>
-            <div class="equipe">
-                <article class="membro-cartao">
-                    <img src="assets/bernardo.jpeg" alt="Foto de Bernardo">
-                    <div class="membro-info">
-                        <h3>Bernardo Trento Gabriel</h3>
-                        <p>Estudante do primeiro semestre. Responsável pela pesquisa de conteúdo e desenvolvimento do HTML.</p>
-                    </div>
-                </article>
+            <form id="form-contato" action="#" method="POST">
+                <div class="campo-form">
+                    <label for="nome">Nome Completo:</label>
+                    <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required>
+                </div>
 
-                <article class="membro-cartao">
-                    <img src="assets/jose.jpeg" alt="Foto de José">
-                    <div class="membro-info">
-                        <h3>José Henrique Alves</h3>
-                        <p>Estudante do primeiro semestre. Responsável por todo JavaScript do site.</p>
-                    </div>
-                </article>
+                <div class="campo-form">
+                    <label for="email">E-mail para contato:</label>
+                    <input type="email" id="email" name="email" placeholder="exemplo@email.com" required>
+                </div>
 
-                <article class="membro-cartao">
-                    <img src="assets/guilherme.jpeg" alt="Foto do Integrante 3">
-                    <div class="membro-info">
-                        <h3>Guilherme Benck De Mello</h3>
-                        <p>Estudante do primeiro semestre. Trabalhou na parte estética aprofundando o CSS.</p>
-                    </div>
-                </article>
-            </div>
+                <div class="campo-form">
+                    <label for="mensagem">Sua Mensagem:</label>
+                    <textarea id="mensagem" name="mensagem" rows="5" placeholder="Escreva sua mensagem aqui..." required></textarea>
+                </div>
+
+                <button type="submit" id="btn-enviar">Enviar Mensagem</button>
+            </form>
         </section>
     </main>
 
@@ -75,5 +66,6 @@
 
     <script src="js/theme.js"></script>
     <script src="js/acessibilidade.js"></script>
+    <script src="js/contato.js"></script>
 </body>
 </html>

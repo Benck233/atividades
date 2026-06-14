@@ -1,0 +1,254 @@
+:root {
+    --cor-fundo-body: #F8FAFC;
+    --cor-texto-body: #334155;
+    --cor-fundo-header: #FFFFFF;
+    --cor-borda-header: #E2E8F0;
+    --cor-sombra-header: rgba(0, 0, 0, 0.05);
+    --cor-h1-header: #0284C7;
+    --cor-p-header: #64748B;
+    --cor-btn-bg: #0284C7;
+    --cor-btn-hover: #0369a1;
+    --cor-link: #334155;
+    --cor-link-hover: #0284C7;
+    --cor-fundo-projeto: #E2E8F0;
+    --cor-texto-projeto: #1E293B;
+    --cor-h2-projeto: #0284C7;
+    --cor-sombra-projeto: rgba(0, 0, 0, 0.02);
+    --cor-titulo-secao: #0F172A;
+    --cor-fundo-conteudo: #FFFFFF;
+    --cor-borda-conteudo: #0284C7;
+    --cor-texto-conteudo: #333333;
+    --cor-sombra-conteudo: rgba(2, 132, 199, 0.04);
+    --cor-h3-conteudo: #0284C7;
+    --cor-p-conteudo: #475569;
+    --cor-hover-sombra: rgba(2, 132, 199, 0.12);
+    --cor-texto-footer: rgba(15, 23, 42, 0.6);
+    --cor-borda-footer: #E2E8F0;
+}
+
+body.dark-mode {
+    --cor-fundo-body: #000000;
+    --cor-texto-body: #E2E8F0;
+    --cor-fundo-header: #1E293B;
+    --cor-borda-header: #334155;
+    --cor-sombra-header: rgba(0, 0, 0, 0.3);
+    --cor-h1-header: #38BDF8;
+    --cor-p-header: #94A3B8;
+    --cor-btn-bg: #0284C7;
+    --cor-btn-hover: #0369a1;
+    --cor-link: #E2E8F0;
+    --cor-link-hover: #38BDF8;
+    --cor-fundo-projeto: #334155;
+    --cor-texto-projeto: #F8FAFC;
+    --cor-h2-projeto: #38BDF8;
+    --cor-sombra-projeto: rgba(0, 0, 0, 0.2);
+    --cor-titulo-secao: #F8FAFC;
+    --cor-fundo-conteudo: #1E293B;
+    --cor-borda-conteudo: #0284C7;
+    --cor-texto-conteudo: #E2E8F0;
+    --cor-sombra-conteudo: rgba(0, 0, 0, 0.2);
+    --cor-h3-conteudo: #38BDF8;
+    --cor-p-conteudo: #94A3B8;
+    --cor-hover-sombra: rgba(2, 132, 199, 0.2);
+    --cor-texto-footer: #64748B;
+    --cor-borda-footer: #334155;
+}
+
+body {
+    background-color: var(--cor-fundo-body);
+    margin: 5px;
+    font-family: 'Poppins', sans-serif; 
+    color: var(--cor-texto-body);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.container-principal {
+    max-width: 1200px;
+    width: 100%;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+}
+
+.header{
+    padding: 2rem 1.5rem 3.5rem 1.5rem;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: var(--cor-fundo-header);
+    border-radius: 10px;
+    border: 1px solid var(--cor-borda-header);
+    box-shadow: 0 4px 6px var(--cor-sombra-header);
+}
+
+.header h1 {
+    color: var(--cor-h1-header); 
+    margin: 0 0 0.3rem 0;
+    font-size: 1.8rem;
+}
+
+.header p {
+    color: var(--cor-p-header);             
+    max-width: 550px;
+    margin-left: auto;          
+    margin-right: auto;         
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 1.5;
+    font-size: 1rem;
+    float: left;
+}
+
+.controles {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    float: right;
+}
+
+.controles button{
+    background-color: var(--cor-btn-bg);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    transition: background-color 0.2s;
+}
+
+.controles button:hover {
+    background-color: var(--cor-btn-hover);
+}
+
+.grade-conteudo {   
+    width: 90%;
+    max-width: 980px;
+    margin: 0 auto;
+    border-radius: 30px; display: flex;
+    justify-content: space-around; 
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    float: right;
+}
+
+.grade-conteudo ul {
+    display: flex;
+    justify-content: space-around; 
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.grade-conteudo li {
+    margin: 0;
+    padding: 0;
+}
+
+.engenharia {
+    color: var(--cor-link);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+    display: block;
+    padding: 5px 10px;
+}
+
+.engenharia:hover {
+    color: var(--cor-link-hover); 
+}
+
+.cartao-projeto {
+    background-color: var(--cor-fundo-projeto);
+    color: var(--cor-texto-projeto);
+    padding: 2.5rem;
+    border-radius: 15px; 
+    margin-bottom: 2.5rem;
+    box-shadow: 0 4px 15px var(--cor-sombra-projeto); 
+}
+
+.cartao-projeto h2 {
+    color: var(--cor-h2-projeto);
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+}
+
+.cartao-projeto p {
+    line-height: 1.6; 
+    font-size: 1.05rem;
+    margin: 0;
+}
+
+.titulo-secao {
+    color: var(--cor-titulo-secao);
+    font-size: 1.6rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+
+.grade-cartilhas {
+    display: flex;
+    flex-direction: column;    
+    gap: 1.5rem;    
+    width: 100%;                
+    max-width: 1200px;         
+    margin: 0 auto;            
+}
+
+.cartao-conteudo {
+    background-color: var(--cor-fundo-conteudo);  
+    border: 1px solid var(--cor-borda-conteudo); 
+    color: var(--cor-texto-conteudo);             
+    width: 100%;                
+    box-sizing: border-box;
+    padding: 2.5rem 2.5rem;       
+    min-height: 130px;          
+    border-radius: 14px;        
+    display: flex;
+    flex-direction: row;
+    align-items: center;        
+    justify-content: space-between; 
+    gap: 3rem;                  
+    box-shadow: 0 4px 12px var(--cor-sombra-conteudo); 
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.cartao-conteudo:hover {
+    transform: translateY(-3px); 
+    box-shadow: 0 10px 20px var(--cor-hover-sombra); 
+}
+
+.cartao-conteudo h3 {
+    color: var(--cor-h3-conteudo);             
+    margin: 0;
+    font-size: 1.4rem;          
+    font-weight: 700;
+    flex: 0 0 260px;            
+}
+
+.cartao-conteudo p {
+    margin: 0;
+    line-height: 1.6;
+    color: var(--cor-p-conteudo);             
+    font-size: 1.05rem;          
+    flex: 1;                    
+}
+
+.footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--cor-texto-footer);
+    font-size: 0.9rem;
+    margin-top: 4rem;
+    border-top: 1px solid var(--cor-borda-footer);
+}
