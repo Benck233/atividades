@@ -58,7 +58,12 @@ def comprimir(s):
     Retorna:
         str: string comprimida no formato "NúmeroChar...".
     """
-    pass
+    pares=[]
+
+    for letras in s:
+        letra=[]
+
+    #pass
 
 
 def descomprimir(s):
