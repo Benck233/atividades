@@ -56,7 +56,13 @@ def maximos_janela(nums, k):
     Retorna:
         list[int]: lista com os máximos de cada posição da janela.
     """
-    pass
+    resultado = []
+
+    for i in range(len(nums) - k + 1):
+        janela = nums[i:i + k]
+        resultado.append(max(janela))
+
+    return resultado
 
 
 def main():
@@ -64,7 +70,7 @@ def main():
     nums = list(map(int, input().split()))
 
     resultado = maximos_janela(nums, k)
-    pass
+    print(" ".join(map(str, resultado)))
 
 
 main()

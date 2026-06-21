@@ -53,7 +53,25 @@ def top_k_palavras(texto, k):
         list[tuple[str, int]]: lista de (palavra, frequência), ordenada
             por frequência desc e nome asc para empates.
     """
-    pass
+    palavras = texto.split()
+
+    freq = {}
+    for palavra in palavras:
+        if palavra not in freq:
+            freq[palavra] = 0
+        freq[palavra] += 1
+
+    ordenado = []
+    for palavra, frequencia in freq.items():
+        ordenado.append((-frequencia, palavra, frequencia))
+
+    ordenado = sorted(ordenado)
+
+    resultado = []
+    for _, palavra, frequencia in ordenado[:k]:
+        resultado.append((palavra, frequencia))
+
+    return resultado
 
 
 def main():
@@ -61,7 +79,9 @@ def main():
     k = int(input().strip())
 
     resultado = top_k_palavras(texto, k)
-    pass
+
+    for palavra, frequencia in resultado:
+        print(f"{palavra}: {frequencia}")
 
 
 main()

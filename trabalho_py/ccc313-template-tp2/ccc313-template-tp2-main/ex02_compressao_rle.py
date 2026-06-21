@@ -58,10 +58,24 @@ def comprimir(s):
     Retorna:
         str: string comprimida no formato "NúmeroChar...".
     """
-    pares=[]
+    resultado=[]
 
-    for letras in s:
-        letra=[]
+    contador=1
+
+    for i in range(1,len(s)):
+        
+      if s[i] == s[i-1]:
+        contador+=1
+      else:
+         resultado.append(str(contador))
+         resultado.append(s[i-1])
+         contador=1
+
+    resultado.append(str(contador))
+    resultado.append(s[-1])
+
+    return "".join(resultado)
+
 
     #pass
 
@@ -75,7 +89,24 @@ def descomprimir(s):
     Retorna:
         str: string original restaurada.
     """
-    pass
+    resultado=[]
+    i=0
+
+    while i < len(s) and s[i].isdigit():
+      numero = ""
+
+      while i < len(s) and s[i].isdigit():
+        numero+= s[i]
+        i+=i
+
+      quantidade = int(numero)
+      caractere =s[i]
+
+      resultado.append(caractere*quantidade)
+      i+=1
+
+    return"".join(resultado)
+    #pass
 
 
 def main():

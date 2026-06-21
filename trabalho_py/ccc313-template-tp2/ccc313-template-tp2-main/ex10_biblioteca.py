@@ -66,38 +66,40 @@ CONTEÚDO: dicionários, None como sentinela, operações CRUD, estruturas condi
 
 
 def criar_acervo(titulos):
-    """Cria o dicionário do acervo com todos os livros disponíveis.
+    """Cria o dicionário do acervo com todos os livros disponíveis."""
+    acervo = {}
 
-    Parâmetro:
-        titulos (list[str]): lista de títulos.
+    for titulo in titulos:
+        acervo[titulo] = None
 
-    Retorna:
-        dict[str, str | None]: acervo com todos os livros mapeados para None.
-    """
-    pass
+    return acervo
 
 
 def processar_operacao(acervo, linha):
-    """Processa uma operação e retorna a saída, se houver.
-
-    Parâmetros:
-        acervo (dict): dicionário do acervo.
-        linha (str): string com a operação.
-
-    Retorna:
-        str | None: string a exibir, ou None se a operação não gera saída.
-    """
+    """Processa uma operação e retorna a saída, se houver."""
     tokens = linha.split()
     operacao = tokens[0]
 
     if operacao == "EMPRESTAR":
-        pass
+        titulo = tokens[1]
+        usuario = tokens[2]
+
+        if acervo[titulo] is None:
+            acervo[titulo] = usuario
+        else:
+            return f"Indisponivel: {titulo}"
 
     elif operacao == "DEVOLVER":
-        pass
+        titulo = tokens[1]
+        acervo[titulo] = None
 
     elif operacao == "STATUS":
-        pass
+        titulo = tokens[1]
+
+        if acervo[titulo] is None:
+            return f"{titulo}: disponivel"
+        else:
+            return f"{titulo}: {acervo[titulo]}"
 
     return None
 
@@ -108,8 +110,10 @@ def main():
     acervo = criar_acervo(titulos)
 
     m = int(input())
+
     for _ in range(m):
         saida = processar_operacao(acervo, input())
+
         if saida is not None:
             print(saida)
 

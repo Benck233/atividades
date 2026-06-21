@@ -53,29 +53,43 @@ import math
 
 
 def par_mais_proximo(pontos):
-    """Encontra o par de pontos com menor distância euclidiana.
-
-    Parâmetro:
-        pontos (list[tuple[int, int]]): lista de pontos como tuplas (x, y).
-
-    Retorna:
-        tuple: (p1, p2, distancia) onde p1 e p2 são tuplas (x, y) e
-               distancia é um float.
-    """
     menor_dist = float("inf")
     melhor_par = None
-    pass
+
+    n = len(pontos)
+
+    for i in range(n):
+        for j in range(i + 1, n):
+            p1 = pontos[i]
+            p2 = pontos[j]
+
+            dx = p2[0] - p1[0]
+            dy = p2[1] - p1[1]
+
+            dist = math.sqrt(dx**2 + dy**2)
+
+            if dist < menor_dist:
+                menor_dist = dist
+                melhor_par = (p1, p2)
+
+            elif dist == menor_dist:
+                if p1 < melhor_par[0]:
+                    melhor_par = (p1, p2)
+
+    return melhor_par[0], melhor_par[1], menor_dist
 
 
 def main():
     n = int(input())
+
     pontos = []
     for _ in range(n):
         x, y = map(int, input().split())
         pontos.append((x, y))
 
     p1, p2, dist = par_mais_proximo(pontos)
-    pass
+
+    print(f"({p1[0]}, {p1[1]}) ({p2[0]}, {p2[1]}) distancia: {dist:.2f}")
 
 
 main()

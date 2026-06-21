@@ -58,26 +58,50 @@ CONTEÚDO: dicionários aninhados, sorted(), tuplas para ordenação
 
 def registrar_time(times, nome):
     """Garante que o time existe no dicionário, inicializando com zeros."""
-    pass
+    if nome not in times:
+        times[nome] = {"pts": 0, "gf": 0, "gc": 0}
 
 
 def processar_partida(times, linha):
-    """Atualiza o dicionário de times com o resultado de uma partida.
-
-    Parâmetro:
-        linha (str): string no formato "TimeA golsA golsB TimeB"
-    """
+    """Atualiza o dicionário de times com o resultado de uma partida."""
     partes = linha.split()
     time_a, gols_a, gols_b, time_b = partes[0], int(partes[1]), int(partes[2]), partes[3]
 
     registrar_time(times, time_a)
     registrar_time(times, time_b)
-    pass
+
+    
+    times[time_a]["gf"] += gols_a
+    times[time_a]["gc"] += gols_b
+
+    times[time_b]["gf"] += gols_b
+    times[time_b]["gc"] += gols_a
+
+    
+    if gols_a > gols_b:
+        times[time_a]["pts"] += 3
+    elif gols_b > gols_a:
+        times[time_b]["pts"] += 3
+    else:
+        times[time_a]["pts"] += 1
+        times[time_b]["pts"] += 1
 
 
 def classificar(times):
     """Retorna lista de (nome, dados) ordenada pelos critérios do campeonato."""
-    pass
+    ranking = []
+
+    for nome, dados in times.items():
+        saldo = dados["gf"] - dados["gc"]
+        ranking.append((-dados["pts"], -saldo, nome, dados))
+
+    ranking.sort()
+
+    resultado = []
+    for _, _, nome, dados in ranking:
+        resultado.append((nome, dados))
+
+    return resultado
 
 
 def main():
@@ -88,7 +112,11 @@ def main():
         processar_partida(times, input())
 
     ranking = classificar(times)
-    pass
+
+    posicao = 1
+    for nome, dados in ranking:
+        print(f"{posicao}. {nome} {dados['pts']}")
+        posicao += 1
 
 
 main()

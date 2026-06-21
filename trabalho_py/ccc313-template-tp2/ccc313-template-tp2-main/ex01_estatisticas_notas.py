@@ -62,34 +62,25 @@ def calcular_estatisticas(notas):
         tuple: (menor, maior, mediana, aprovados)
     """
 
-    maior_nota=notas[0]
-    menor_nota=notas[0]
+    menor = min(notas)
+    maior = max(notas)
 
-    for nota in notas:
-      if nota < menor_nota:
-         menor_nota= nota
-      
-      if nota > maior_nota:
-         maior_nota=nota
-    
-    sorted(notas)
+    notas_ordenadas = sorted(notas)
 
-    mediana=0
-    if len(notas) %2 == 0:
-      n= len(notas)
-      
-      mediana= (notas[(n//2 - 1)] + notas[n//2])/2
+    n=len(notas_ordenadas)
+
+    if n %2==1:
+       mediana= notas_ordenadas[n//2]
     else:
-       n= len(notas)
-       mediana=notas[n//2]
+       mediana= (notas_ordenadas[n//2-1]+notas_ordenadas[n//2])/2
 
-    aluno_aprovado=0
+    aprovados=0
+    for nota in notas:
+       if nota >=6.0:
+          aprovados+=1
 
-    for nota_aluno in notas:
-       if nota_aluno >=6.0:
-          aluno_aprovado= aluno_aprovado + 1.0
           
-    return(menor_nota, maior_nota, mediana, aluno_aprovado)
+    return(menor, maior, mediana, aprovados)
    # pass
 
 

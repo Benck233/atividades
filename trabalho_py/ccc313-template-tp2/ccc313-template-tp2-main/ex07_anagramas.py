@@ -49,18 +49,26 @@ CONTEÚDO: tuplas como chaves de dict, sorted(), agrupamento por chave
 
 
 def agrupar_anagramas(palavras):
-    """Agrupa as palavras por anagrama.
-
-    Parâmetro:
-        palavras (list[str]): lista de palavras.
-
-    Retorna:
-        list[list[str]]: lista de grupos, cada grupo é uma lista de palavras
-            ordenadas alfabeticamente. Os grupos são ordenados pela primeira
-            palavra de cada grupo.
-    """
+    """Agrupa as palavras por anagrama."""
     grupos = {}
-    pass
+
+    for palavra in palavras:
+        assinatura = tuple(sorted(palavra))
+
+        if assinatura not in grupos:
+            grupos[assinatura] = []
+
+        grupos[assinatura].append(palavra)
+
+    
+    lista_grupos = []
+    for grupo in grupos.values():
+        lista_grupos.append(sorted(grupo))
+
+    
+    lista_grupos.sort(key=lambda grupo: grupo[0])
+
+    return lista_grupos
 
 
 def main():
@@ -68,7 +76,9 @@ def main():
     palavras = input().split()
 
     grupos = agrupar_anagramas(palavras)
-    pass
+
+    for grupo in grupos:
+        print(*grupo)
 
 
 main()

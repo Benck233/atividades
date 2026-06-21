@@ -75,8 +75,8 @@ def main():
     capacidade = int(input())
     n = int(input())
 
-    cache = {}       # chave → valor
-    recentes = []    # lista de chaves: recentes[0] = LRU, recentes[-1] = MRU
+    cache = {}
+    recentes = []
 
     for _ in range(n):
         partes = input().split()
@@ -86,12 +86,24 @@ def main():
             chave = int(partes[1])
             valor = int(partes[2])
 
-            pass
+            if chave in cache:
+                recentes.remove(chave)
+            elif len(cache) == capacidade:
+                antigo = recentes.pop(0)
+                del cache[antigo]
+
+            cache[chave] = valor
+            recentes.append(chave)
 
         elif operacao == "GET":
             chave = int(partes[1])
 
-            pass
+            if chave in cache:
+                recentes.remove(chave)
+                recentes.append(chave)
+                print(cache[chave])
+            else:
+                print("Nenhum")
 
 
 main()

@@ -46,17 +46,16 @@ CONTEÚDO: conjuntos (set), operações de diferença, .add(), sorted()
 
 
 def verificar_cobertura(necessarias, membros):
-    """Verifica quais habilidades necessárias não são cobertas pela equipe.
-
-    Parâmetros:
-        necessarias (set[str]): conjunto de habilidades exigidas.
-        membros (list[str]): lista de strings no formato "Nome: h1 h2 ..."
-
-    Retorna:
-        set[str]: conjunto de habilidades faltando (vazio se equipe completa).
-    """
+    """Verifica quais habilidades necessárias não são cobertas pela equipe."""
     disponiveis = set()
-    pass
+
+    for membro in membros:
+        nome, habilidades = membro.split(": ", 1)
+
+        for habilidade in habilidades.split():
+            disponiveis.add(habilidade)
+
+    return necessarias - disponiveis
 
 
 def main():
@@ -65,7 +64,11 @@ def main():
     membros = [input() for _ in range(n)]
 
     faltando = verificar_cobertura(necessarias, membros)
-    pass
+
+    if len(faltando) == 0:
+        print("Equipe completa")
+    else:
+        print("Habilidades faltando:", *sorted(faltando))
 
 
 main()

@@ -49,24 +49,25 @@ CONTEÚDO: dicionários com listas como valores, .get(), enumerate()
 
 
 def construir_indice(documentos):
-    """Constrói o índice invertido a partir de uma lista de textos.
-
-    Parâmetro:
-        documentos (list[str]): lista de strings, cada uma com o texto de um doc.
-
-    Retorna:
-        dict[str, list[int]]: mapeamento palavra → lista de números de documento (1-indexed).
-    """
+    """Constrói o índice invertido a partir de uma lista de textos."""
     indice = {}
+
+    for num_doc, texto in enumerate(documentos, start=1):
+        palavras = texto.split()
+
+        for palavra in palavras:
+            if palavra not in indice:
+                indice[palavra] = []
+
+            if num_doc not in indice[palavra]:
+                indice[palavra].append(num_doc)
+
     return indice
 
 
 def buscar(indice, query):
-    """Retorna a lista de números de documentos que contêm query.
-
-    Retorna lista vazia se a palavra não for encontrada.
-    """
-    pass
+    """Retorna a lista de números de documentos que contêm query."""
+    return indice.get(query, [])
 
 
 def main():
@@ -76,7 +77,11 @@ def main():
 
     indice = construir_indice(documentos)
     resultado = buscar(indice, query)
-    pass
+
+    if resultado:
+        print("Documentos:", *resultado)
+    else:
+        print("Nenhum documento encontrado")
 
 
 main()

@@ -62,15 +62,20 @@ CONTEÚDO: dicionários de conjuntos, BFS, listas como fila, grafos
 
 
 def construir_grafo(arestas):
-    """Constrói o grafo como dicionário de conjuntos.
-
-    Parâmetro:
-        arestas (list[str]): lista de strings "A B".
-
-    Retorna:
-        dict[str, set[str]]: adjacência do grafo não-dirigido.
-    """
+    """Constrói o grafo como dicionário de conjuntos."""
     grafo = {}
+
+    for linha in arestas:
+        a, b = linha.split()
+
+        if a not in grafo:
+            grafo[a] = set()
+        if b not in grafo:
+            grafo[b] = set()
+
+        grafo[a].add(b)
+        grafo[b].add(a)
+
     return grafo
 
 
@@ -81,7 +86,22 @@ def bfs(grafo, origem, destino):
     """
     if origem == destino:
         return 0
-    pass
+
+    visitados = {origem}
+    fila = [(origem, 0)]
+
+    while fila:
+        vertice, dist = fila.pop(0)
+
+        for vizinho in grafo.get(vertice, set()):
+            if vizinho == destino:
+                return dist + 1
+
+            if vizinho not in visitados:
+                visitados.add(vizinho)
+                fila.append((vizinho, dist + 1))
+
+    return -1
 
 
 def main():
