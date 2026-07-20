@@ -5,7 +5,7 @@ menu = {"x-salada":10,"Suco_de_laranja":5,"brigadeiro":8}
 conta_total=0
 menu_em_lista=list(menu.values())
 numero = 1
-numeros_validos=[1,2,3]
+numeros_validos=["1","2","3"]
 
 
 for item, preco in menu.items():
@@ -22,7 +22,7 @@ while True:
         break
 
     if str(escolha) == "FIM":
-        print(f"O valor da sua conta final foi de: {conta_total}")
+        print(f"O valor da sua conta final foi de: R${conta_total}")
         break
 
     else:
