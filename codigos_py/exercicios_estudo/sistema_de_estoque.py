@@ -29,5 +29,10 @@ while True:
         escolha=input()
 
         if int(escolha) == 1:
-        
+            
             print(f"{estoque["Smartphone"]}")
+        
+        
+        if int(escolha) == 4:
+
+            break
