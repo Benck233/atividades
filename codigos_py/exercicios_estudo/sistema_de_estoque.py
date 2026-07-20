@@ -31,7 +31,8 @@ while True:
         if int(escolha) == 1:
             
             print(f"{estoque["Smartphone"]}")
-        
+        elif int(escolha) ==2:
+            print(f"A quantidade de Noebok no estoque é de {estoque['Notebook']["quantidade"]}")
         
         if int(escolha) == 4:
 
