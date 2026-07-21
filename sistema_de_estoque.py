@@ -123,33 +123,26 @@ while True:
 
         print("\n Em qual item você deseja remover ?\n")
 
-                #if adicionar_itens < estoque["Smartphone"]["quantidade"]:
-                #    print("Digite um valor maior do que ja existe")
-                #    break
-
         escolha=int(input())
+                
+
+        if int(escolha) ==1 :
+            print("Quanto você deseja remover ?")
+
+            remover_itens=int(input())
         
-        
-        
-        
-        
-        
-        
-        
-        remover_itens=int(input())
-        
-        if  remover_itens :
-                    if estoque["Smartphone"]["quantidade"] > 0:
-                        estoque["Smartphone"]["quantidade"]-=remover_itens
-                        print("\nSeu valor foi removido")
-                        print(f"Novo estoque de Smartphone = {estoque['Smartphone']["quantidade"]}")
-                        print("Você deseja continuar removendo itens ? s/n")
-                        opcao_sn =input().lower()
-                        if opcao_sn == "n":
-                            print("Você voltou ao menu\n")
-                            break
-                    else:
-                        print("valor do estoque abaixo do permitido")
+            if  remover_itens :
+                        if estoque["Smartphone"]["quantidade"] > 0 and estoque["Smartphone"]["quantidade"] >= remover_itens:
+                            estoque["Smartphone"]["quantidade"]-=remover_itens
+                            print("\nSeu valor foi removido")
+                            print(f"Novo estoque de Smartphone = {estoque['Smartphone']["quantidade"]}")
+                            print("Você deseja continuar removendo itens ? s/n")
+                            opcao_sn =input().lower()
+                            if opcao_sn == "n":
+                                print("Você voltou ao menu\n")
+                                break
+                        else:
+                            print("Valor do estoque muito baixo")
 
     if int(escolha) == 3:
         numero_if=1
