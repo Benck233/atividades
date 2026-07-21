@@ -30,6 +30,10 @@ while True:
         
 
     escolha=input()
+
+    if escolha not in numeros_permitidos:
+        print("Numero invalido, tente novamente")
+        break
     
     if int(escolha) == 4:
         #print(relatorio)
