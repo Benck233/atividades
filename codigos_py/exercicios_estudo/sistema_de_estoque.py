@@ -54,7 +54,7 @@ while True:
                 #    print("Digite um valor maior do que ja existe")
                 #    break
 
-                if escolha != adicionar_itens and int(adicionar_itens)>= estoque["Smartphone"]["quantidade"]:
+                if adicionar_itens :
                     estoque["Smartphone"]["quantidade"]+=adicionar_itens
                     print("\nSeu valor foi adicionado")
                     print(f"Novo estoque de Smartphone = {estoque['Smartphone']["quantidade"]}")
