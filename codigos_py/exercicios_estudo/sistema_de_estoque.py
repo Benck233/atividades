@@ -68,24 +68,35 @@ while True:
             if int(escolha)==2:
                 print(f"Quanto você deseja adicionar ?")
 
-                adicionar_itens=input()
+                adicionar_itens=int(input())
 
-                if escolha != adicionar_itens:
-                    estoque["Notebook"]["quantidade"]+= adicionar_itens
+                if adicionar_itens :
+                    estoque["Notebook"]["quantidade"]+=adicionar_itens
+                    print("\nSeu valor foi adicionado")
+                    print(f"Novo estoque de Smartphone = {estoque['Notebook']["quantidade"]}")
+                    print("Você deseja continuar adicionando itens ? s/n")
+                    opcao_sn =input().lower()
+                    if opcao_sn == "n":
+                        print("Você voltou ao menu\n")
+                        break
 
-                else:
-                    estoque["Notebook"]["quantidade"]=estoque["Notebook"]["quantidade"]
+                
 
             if int(escolha)==3:
                 print(f"Quanto você deseja adicionar ?")
 
-                adicionar_itens=input()
+                adicionar_itens=int(input())
 
-                if escolha != adicionar_itens:
-                    estoque["Fone Bluetooth"]["quantidade"]+= adicionar_itens
-                
-                else:
-                    estoque["Fone Bluetooth"]["quantidade"]=estoque["Fone Bluetooth"]["quantidade"]
+                if adicionar_itens :
+                    estoque["Smartphone"]["quantidade"]+=adicionar_itens
+                    print("\nSeu valor foi adicionado")
+                    print(f"Novo estoque de Smartphone = {estoque['Smartphone']["quantidade"]}")
+                    print("Você deseja continuar adicionando itens ? s/n")
+                    opcao_sn =input().lower()
+                    if opcao_sn == "n":
+                        print("Você voltou ao menu\n")
+                        break
+
 
             if int(escolha) == 4:
                 print(estoque)
