@@ -2,7 +2,8 @@
 #2= remover
 #3= olhar etoque
 #4= sair e tem q mostrar o relatorio
-
+import msvcrt
+import time
 
 estoque = {
     "Smartphone": {"quantidade": 10, "preco": 800},
@@ -20,7 +21,7 @@ numero=1
 while True:
 
     for opcao, valor in opcoes.items():
-        print(f"{numero}. {opcao} = {valor}.")
+        print(f"{numero}. {opcao}")
         numero+=1
 
         if numero>4:
@@ -113,8 +114,19 @@ while True:
         for produto, info, in estoque.items():
             print(f"{numero_if}. {produto}, possui {info["quantidade"]} no estoque, e o preço por unidade está em R$ {info["preco"]}.")
             numero_if+=1
-        continue
+        while True:
+            print("Deseja voltar ao menu ? s/n")
+            escolha=input()
+            if escolha == "n":
+                time.sleep(5)
+            
+                while msvcrt.kbhit():
+                    msvcrt.getch()
 
+            
+            elif escolha == "s":
+                    print("Você voltou ao menu\n")
+                    break
         
 
 
