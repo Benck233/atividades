@@ -33,7 +33,7 @@ while True:
 
     if escolha not in numeros_permitidos:
         print("Numero invalido, tente novamente")
-        break
+        continue
     
     if int(escolha) == 4:
         #print(relatorio)
