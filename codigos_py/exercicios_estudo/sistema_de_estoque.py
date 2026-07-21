@@ -63,14 +63,7 @@ while True:
                     if opcao_sn == "n":
                         print("Você voltou ao menu\n")
                         break
-                    else:
-                        print(f"Novo estoque de Smartphone = {estoque['Smartphone']["quantidade"]}")
-                
-                else:
-                    if int(adicionar_itens)== estoque["Smartphone"]["quantidade"]:
-                     
-                        estoque["Smartphone"]["quantidade"]=estoque["Smartphone"]["quantidade"]
-                        print()
+                    
 
             if int(escolha)==2:
                 print(f"Quanto você deseja adicionar ?")
