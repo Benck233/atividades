@@ -31,7 +31,7 @@ while True:
 
     escolha=input()
 
-    if escolha not in numeros_permitidos:
+    if int(escolha) not in numeros_permitidos:
         print("Numero invalido, tente novamente")
         continue
     
@@ -111,7 +111,45 @@ while True:
                 print(estoque)
                 break
 
+    if int(escolha) ==2:
 
+        
+        print("\n selecine de 1 a 3 para remover, caso contrario aperta 4 para sair\n")
+        
+        numero_if=1
+        for produto, info, in estoque.items():
+            print(f"{numero_if}. {produto}, possui {info["quantidade"]} no estoque, e o preço por unidade está em R$ {info["preco"]}.")
+            numero_if+=1
+
+        print("\n Em qual item você deseja remover ?\n")
+
+                #if adicionar_itens < estoque["Smartphone"]["quantidade"]:
+                #    print("Digite um valor maior do que ja existe")
+                #    break
+
+        escolha=int(input())
+        
+        
+        
+        
+        
+        
+        
+        
+        remover_itens=int(input())
+        
+        if  remover_itens :
+                    if estoque["Smartphone"]["quantidade"] > 0:
+                        estoque["Smartphone"]["quantidade"]-=remover_itens
+                        print("\nSeu valor foi removido")
+                        print(f"Novo estoque de Smartphone = {estoque['Smartphone']["quantidade"]}")
+                        print("Você deseja continuar removendo itens ? s/n")
+                        opcao_sn =input().lower()
+                        if opcao_sn == "n":
+                            print("Você voltou ao menu\n")
+                            break
+                    else:
+                        print("valor do estoque abaixo do permitido")
 
     if int(escolha) == 3:
         numero_if=1
