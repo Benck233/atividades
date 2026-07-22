@@ -14,6 +14,7 @@ estoque = {
 opcoes={"adicionar":1,"remover":2,"ver estoque":3,"sair":4}
 
 numeros_permitidos=[1,2,3,4]
+string_permitidas=None
 
 numero=1
 
@@ -31,7 +32,13 @@ while True:
 
     escolha=input()
 
-    if int(escolha) not in numeros_permitidos:
+    if not escolha.isdigit():
+        print("Letras não são permitidas, tente novamente")
+        continue
+
+    escolha = int(escolha)
+
+    if escolha not in numeros_permitidos:
         print("Numero invalido, tente novamente")
         continue
     
@@ -140,9 +147,45 @@ while True:
                             opcao_sn =input().lower()
                             if opcao_sn == "n":
                                 print("Você voltou ao menu\n")
-                                break
+                                continue
                         else:
                             print("Valor do estoque muito baixo")
+
+        if int(escolha) ==2 :
+                    print("Quanto você deseja remover ?")
+        
+                    remover_itens=int(input())
+                
+                    if  remover_itens :
+                                if estoque["Notebook"]["quantidade"] > 0 and estoque["Notebook"]["quantidade"] >= remover_itens:
+                                    estoque["Notebook"]["quantidade"]-=remover_itens
+                                    print("\nSeu valor foi removido")
+                                    print(f"Novo estoque de Notebook = {estoque['Notebook']["quantidade"]}")
+                                    print("Você deseja continuar removendo itens ? s/n")
+                                    opcao_sn =input().lower()
+                                    if opcao_sn == "n":
+                                        print("Você voltou ao menu\n")
+                                        continue
+                                else:
+                                    print("Valor do estoque muito baixo")
+
+        if int(escolha) ==3 :
+                            print("Quanto você deseja remover ?")
+                
+                            remover_itens=int(input())
+                        
+                            if  remover_itens :
+                                        if estoque["Fone Bluetooth"]["quantidade"] > 0 and estoque["Fone Bluetooth"]["quantidade"] >= remover_itens:
+                                            estoque["Fone Bluetooth"]["quantidade"]-=remover_itens
+                                            print("\nSeu valor foi removido")
+                                            print(f"Novo estoque de Fone Bluetooth = {estoque['Fone Bluetooth']["quantidade"]}")
+                                            print("Você deseja continuar removendo itens ? s/n")
+                                            opcao_sn =input().lower()
+                                            if opcao_sn == "n":
+                                                print("Você voltou ao menu\n")
+                                                continue
+                                        else:
+                                            print("Valor do estoque muito baixo")
 
     if int(escolha) == 3:
         numero_if=1
