@@ -9,7 +9,7 @@ int main(){
     //cin >> nome;
     //Obtem toda a linha, 
     //incluindo espaços em branco
-    getline(cin,nome); 
+    getline(cin,nome); //getline serve para pegar o input com espaços
 
     cout << "Meu nome é: " << nome;
     return 0;

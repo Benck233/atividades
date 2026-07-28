@@ -11,8 +11,8 @@ int main(){
     //setprecision(quantidadede casas)
     //setprecision define a precisão
     cout << "O resultado é: "
-         << fixed
-         << setprecision(3)
+         << fixed //o fixed coloca o ponto
+         << setprecision(3) // o setprecision define a quantidade de casas decimais.
          << a/b << endl;
 
     return 0;
