@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistema de Estoque</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header class="hero">
+        <h1>Sistema de Estoque</h1>
+        <p>Interface web local para visualizar e controlar o estoque do seu programa.</p>
+      </header>
+
+      <section class="grid">
+        <article class="card">
+          <h2>Estoque atual</h2>
+          <ul id="stockList" class="stock-list"></ul>
+        </article>
+
+        <article class="card">
+          <h2>Operação</h2>
+          <form id="stockForm">
+            <label>
+              Produto
+              <select id="product" required></select>
+            </label>
+
+            <label>
+              Ação
+              <select id="action" required>
+                <option value="add">Adicionar</option>
+                <option value="remove">Remover</option>
+              </select>
+            </label>
+
+            <label>
+              Quantidade
+              <input id="quantity" type="number" min="1" value="1" required />
+            </label>
+
+            <button type="submit">Executar</button>
+          </form>
+        </article>
+      </section>
+
+      <section class="card summary">
+        <h2>Resumo</h2>
+        <p id="status">Selecione uma operação para atualizar o estoque.</p>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
