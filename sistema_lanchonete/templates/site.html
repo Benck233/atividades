@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+    <header><h1>🍔 Lanchonete</h1></header>
+    
+    
+    <div class="container">
+        <div class="menu">
+            <!-- menu aqui-->
+            <div class="item-menu" id="hamburguer">
+                <img src="../assets/x-salada.svg" alt="X-salada" width="50%">
+                <h3>X-salada</h3>
+                <p>R$ 10,00</p>
+                <button id="botao-hamburguer" data-tempo="600">Adicionar ao painel de pedidos</button>
+            </div>
+
+            <div class="item-menu" id="suco-laranja">
+                <img src="../assets/suco-laranja.svg" alt="Suco de laranja" width="50%">
+                <h3>Suco de laranja</h3>
+                <p>R$ 5,00</p>
+                <button id="botao-suco" data-tempo="60">Adicionar ao painel de pedidos</button>
+            </div>
+
+            <div class="item-menu" id="brigadeiro">
+                <img src="../assets/brigadeiro.svg" alt="Brigadeiro" width="50%">
+                <h3>Brigadeiro</h3>
+                <p>R$ 8,00</p>
+                <button id="botao-brigadeiro" data-tempo="60">Adicionar ao painel de pedidos</button>
+            </div>
+        </div>
+        <div class="pedido">
+        <!--pedido aqui-->
+        <h2>Pedidos em Andamento</h2>
+        <div class="pedidos-container"></div>
+            <!-- Aqui os pedidos vão aparecer dinamicamente com JavaScript -->
+        </div>
+    </div>
+
+    
+</body>
+</html>
