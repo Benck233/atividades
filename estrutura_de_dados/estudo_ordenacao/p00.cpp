@@ -22,9 +22,6 @@ do
 
 } while (troca);
 
-    
-
-
 
 }
 
