@@ -46,10 +46,12 @@ int main(){
     int execelente=0;
     int bom=0;
     int melhorar=0;
+    double soma_tempo_atletas=0;
     
     for (int i = 0; i < numero_atletas; i++)
     {
         cin>>tempo_atletas[i];
+        soma_tempo_atletas+=tempo_atletas[i];
         
         int resultado = testar_tempo_atleta(tempo_atletas[i]);
 
@@ -68,16 +70,35 @@ int main(){
             melhorar++;
         }
         
-
+        
     }
+    double melhor_tempo = tempo_atletas[0];
+    double pior_tempo = tempo_atletas[0];
     
-    cout<<execelente<<endl;
-    cout<<bom<<endl;
-    cout<<melhorar<<endl;
+    for (int i = 1; i < numero_atletas; i++)
+    {
+        
+        if (melhor_tempo>tempo_atletas[i])
+        {
+          melhor_tempo=tempo_atletas[i];  
+        }
+        else if (pior_tempo<tempo_atletas[i])
+        {
+            pior_tempo=tempo_atletas[i];
+        }
+    }
+
+    double media_tempo=soma_tempo_atletas/numero_atletas;
     
     
+    cout<<"execelente"<<execelente<<endl;
+    cout<<"bom"<<bom<<endl;
+    cout<<"melhorar"<<melhorar<<endl;
+    cout<<"melhor_tempo"<<melhor_tempo<<endl;
+    cout<<"pior_tempo"<<pior_tempo<<endl;
+    cout<<"media_tempo"<<media_tempo<<endl;
     
-    
+    //sort(tempo_atletas)
 
 
     return 0;
