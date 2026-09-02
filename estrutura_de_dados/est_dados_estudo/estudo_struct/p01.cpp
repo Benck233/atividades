@@ -70,7 +70,5 @@ void mostrarmaiornota(Aluno alunos[], int quantidade){
 
     cout<<nome_aluno_com_maior_nota<<": ";
     cout<<maior_nota_aluno <<endl;
-    
-
 
 }
