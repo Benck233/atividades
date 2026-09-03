@@ -1,8 +1,18 @@
 #include <iostream>
+#include <iomanip>
 #include <algorithm>
 #include "funcao_tempo.cpp"
+#include "ordenar.cpp"
 using namespace std;
+/*Professor aqui tive um porblema com o compilador, pelo o que eu pesquisei
+ao tentar usar como 
+int n;
+cin>>n;
 
+int numero_atletas[n];
+
+pelas minhas pesquisas isso dependendo do compilador da erro, entao fiz aquela gambiarra com MAX
+*/
 
 
 //talvez usa assim
@@ -32,7 +42,7 @@ using namespace std;
 }*/
 
 int main(){
-    cout<<"digite uma entrada"<<endl;
+    cout<<"Digite o número de atletas"<<endl;
     int numero_atletas;
     cin>>numero_atletas;
     const int MAX =1000;
@@ -90,16 +100,39 @@ int main(){
 
     double media_tempo=soma_tempo_atletas/numero_atletas;
     
-    
+    /*
     cout<<"execelente"<<execelente<<endl;
     cout<<"bom"<<bom<<endl;
     cout<<"melhorar"<<melhorar<<endl;
     cout<<"melhor_tempo"<<melhor_tempo<<endl;
     cout<<"pior_tempo"<<pior_tempo<<endl;
     cout<<"media_tempo"<<media_tempo<<endl;
-    
-    //sort(tempo_atletas)
+    */
+    sort(tempo_atletas, tempo_atletas + numero_atletas, ordenar);
+    /*
+    for (int i = 0; i < numero_atletas; i++)
+    {
+        cout<<tempo_atletas[i]<<endl;
+    }
+    */
+    cout<<"Execelente: "<<execelente<<" atletas"<<endl;
+    cout<<"Bom: "<<bom<<" atletas"<<endl;
+    cout<<"Precisa Melhorar: "<<melhorar<<" atletas"<<endl;
+    cout<<endl;
+    cout<<"Melhor tempo: "<<fixed<<setprecision(2)<<melhor_tempo<<"s"<<endl;
+    cout<<"Pior tempo: "<<fixed<<setprecision(2)<<pior_tempo<<"s"<<endl;
+    cout<<"Tempo médio: "<<fixed<<setprecision(2)<<media_tempo<<"s"<<endl;
 
+
+    cout<<"Tempos em ordem decrescente: ";
+    for (int i = 0; i < numero_atletas; i++)
+    {
+        if (i > 0)
+        {
+            cout<<", ";
+        }
+        cout<<tempo_atletas[i];
+    }
 
     return 0;
 }
